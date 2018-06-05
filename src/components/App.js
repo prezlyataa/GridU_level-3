@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Route, Link, Router, Switch } from 'react-router-dom';
 import { FirstPage } from '../components/FirstPage';
 import { SecondPage } from '../components/SecondPage'
 import './App.css';
@@ -8,10 +8,12 @@ class App extends Component {
     render() {
         return (
            <div className='appContainer'>
-               <ul>
-                   <li><a href="/">First page</a></li>
-                   <li><a href="/secondPage">Second page</a></li>
-               </ul>
+               <div>
+                   <ul className='links'>
+                       <li><Link to='/'>First page</Link></li>
+                       <li><Link to='/secondPage'>Second page</Link></li>
+                   </ul>
+               </div>
                <hr/>
                <Switch>
                    <Route exact path='/' component={ FirstPage }/>

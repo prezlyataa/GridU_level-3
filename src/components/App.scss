@@ -2,3 +2,18 @@
   max-width: 1200px;
   margin: 0 auto;
 }
+
+.links {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+
+  a {
+    text-decoration: none;
+    margin: 0 10px;
+    background-color: orange;
+    padding: 5px 8px;
+    color: #fff;
+    border-radius: 5px;
+  }
+}

@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import './secondPage.css';
 
 const mapStateToProps = state => {
-    return { articles: state.articles };
+    return { persons: state.persons };
 };
 
 class ConnectedSecondPage extends Component {
-    constructor(articles){
-        super(articles);
+    constructor(persons){
+        super(persons);
     }
     render() {
-        console.log(this.props.articles);
+        console.log(this.props.persons);
         return(
             <div>
-                <h3>SecondPage</h3>
+                <h3 className='page_title'>SecondPage</h3>
             </div>
         )
     }
