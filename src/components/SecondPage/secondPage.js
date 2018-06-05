@@ -15,6 +15,14 @@ class ConnectedSecondPage extends Component {
         return(
             <div>
                 <h3 className='page_title'>SecondPage</h3>
+                <div className="persons">
+                    {this.props.persons.map((person, id) => (
+                        <div key={id}>
+                            <p>{id}) {person.name} {person.age}</p>
+                            <button>Delete</button>
+                        </div>
+                    ))}
+                </div>
             </div>
         )
     }

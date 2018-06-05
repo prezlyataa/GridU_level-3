@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { addPerson } from '../../actions';
+import { addPerson, deletePerson } from '../../actions';
 import { connect } from 'react-redux';
 import './firstPage.css';
 
 const mapDispatchToProps = dispatch => {
     return {
-        addPerson: person => dispatch(addPerson(person))
+        addPerson: person => dispatch(addPerson(person)),
+        deletePerson: person => dispatch(deletePerson(person))
     };
 };
 
@@ -67,10 +68,6 @@ class ConnectedFirstPage extends Component {
 
         this.props.addPerson(newPerson);
 
-        // this.setState({
-        //     persons: persons.concat(newPerson)
-        // });
-
         this.setState({
             name: '',
             age: null
@@ -85,7 +82,7 @@ class ConnectedFirstPage extends Component {
 
     render() {
         const { count } = this.state;
-        console.log(this.props.persons);
+        // console.log(this.props.persons);
         return (
             <div>
                 <h3 className='page_title'>First page</h3>
@@ -109,7 +106,8 @@ class ConnectedFirstPage extends Component {
                 <div className="persons">
                     {this.props.persons.map((person, id) => (
                         <div key={id}>
-                            <p>{person.name} {person.age}</p>
+                            <p>{id}) {person.name} {person.age}</p>
+                            <button onClick={() => this.props.deletePerson(id)}>Delete</button>
                         </div>
                     ))}
                 </div>
