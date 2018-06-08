@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import withWire from '../../hocs/withWire';
 import './secondPage.css';
 
 const mapStateToProps = state => {
@@ -7,14 +9,15 @@ const mapStateToProps = state => {
 };
 
 class ConnectedSecondPage extends Component {
-    constructor(persons){
-        super(persons);
+    constructor(props, persons){
+        super(props, persons);
     }
     render() {
         console.log(this.props.persons);
         return(
             <div>
                 <h3 className='page_title'>SecondPage</h3>
+                <p>{this.props.greetingService.writeGreet()}</p>
                 <div className="persons">
                     {this.props.persons.map((person, id) => (
                         <div key={id}>
@@ -30,4 +33,15 @@ class ConnectedSecondPage extends Component {
 
 const SecondPage = connect(mapStateToProps)(ConnectedSecondPage);
 
-export default SecondPage;
+SecondPage.propTypes = {
+    greetingService: PropTypes.shape({
+        writeGreet: PropTypes.func
+    }).isRequired
+};
+
+// export default SecondPage;
+export default withWire(
+    SecondPage,
+    ['greetingService'],
+    ( greetingService ) => ({ greetingService })
+);
