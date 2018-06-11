@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { addPerson, deletePerson, sortByAge } from '../../actions';
 import { connect } from 'react-redux';
+import withWire from '../../hocs/withWire';
+import PropTypes from 'prop-types';
+import { URLS } from '../../consts/apiConsts';
 import './firstPage.css';
 
 const mapDispatchToProps = dispatch => {
@@ -19,30 +22,19 @@ class ConnectedFirstPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            count: 0,
             name: '',
             age: null
         };
-        this.increase = this.increase.bind(this);
-        this.decrease = this.decrease.bind(this);
         this.handleChangeName = this.handleChangeName.bind(this);
         this.handleChangeAge = this.handleChangeAge.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.resetInputs = this.resetInputs.bind(this);
     }
 
-    increase() {
-        const { count } = this.state;
-        this.setState({
-            count: count + 1
-        });
-    }
-
-    decrease() {
-        const { count } = this.state;
-        this.setState({
-            count: count - 1
-        })
+    componentWillMount() {
+        const { httpService } = this.props;
+        httpService.get(URLS.products)
+            .then(response => console.log(response));
     }
 
     handleChangeName(event) {
@@ -82,17 +74,11 @@ class ConnectedFirstPage extends Component {
     }
 
     render() {
-        const { count } = this.state;
         const { persons } = this.props;
-        console.log(this.props.persons);
+        // console.log(this.props.persons);
         return (
             <div>
                 <h3 className='page_title'>First page</h3>
-                <div className='count_block'>
-                    <button onClick={ this.increase }>Increase</button>
-                    <button onClick={ this.decrease }>Decrease</button>
-                    <p>{ count }</p>
-                </div>
                 <div className='page_form'>
                     <form
                         onSubmit={this.handleSubmit}
@@ -123,4 +109,17 @@ class ConnectedFirstPage extends Component {
 
 const FirstPage = connect(mapStateToProps, mapDispatchToProps)(ConnectedFirstPage);
 
-export default FirstPage;
+FirstPage.propTypes = {
+    httpService: PropTypes.shape({
+        get: PropTypes.func,
+        post: PropTypes.func,
+        put: PropTypes.func,
+        delete: PropTypes.func
+    }).isRequired
+};
+
+export default withWire(
+    FirstPage,
+    ['httpService'],
+    httpService  => ({ httpService })
+);

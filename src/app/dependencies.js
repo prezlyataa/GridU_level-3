@@ -1,4 +1,5 @@
 import GreetingService from '../services/greetingService';
+import HttpService from '../services/httpService';
 
 const dependencies = {
     data: {},
@@ -12,6 +13,7 @@ const dependencies = {
 
 export function registerDependencies() {
     dependencies.register('greetingService', new GreetingService());
+    dependencies.register('httpService', new HttpService());
 }
 
 export default dependencies;

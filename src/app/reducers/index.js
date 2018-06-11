@@ -11,8 +11,6 @@ const initialState = {
 const rootReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_PERSON:
-            // state.persons.push(action.payload);
-            // return state;
             return { ...state, persons: [...state.persons, action.payload] };
         case DELETE_PERSON:
             return {...state, persons: [
