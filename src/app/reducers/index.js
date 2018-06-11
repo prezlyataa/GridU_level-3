@@ -1,4 +1,8 @@
-import {ADD_PERSON, DELETE_PERSON} from '../constants/action-types';
+import {
+    ADD_PERSON,
+    DELETE_PERSON,
+    SORT_BY_AGE
+} from '../constants/action-types';
 
 const initialState = {
     persons: []
@@ -11,8 +15,14 @@ const rootReducer = (state = initialState, action) => {
             // return state;
             return { ...state, persons: [...state.persons, action.payload] };
         case DELETE_PERSON:
-            state.persons.splice(action.payload, 1);
-            return {...state, persons: [...state.persons]};
+            return {...state, persons: [
+                    ...state.persons.slice(0, action.payload),
+                    ...state.persons.slice(action.payload + 1)
+                ]};
+        case SORT_BY_AGE:
+            return {...state, persons: [
+                ...state.persons.sort((a,b) => {return a.age - b.age})
+                ]};
         default:
             return state;
     }

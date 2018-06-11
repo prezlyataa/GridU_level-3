@@ -9,20 +9,16 @@ const mapStateToProps = state => {
 };
 
 class ConnectedSecondPage extends Component {
-    constructor(props, persons){
-        super(props, persons);
-    }
     render() {
-        console.log(this.props.persons);
+        const { greetingService, persons } = this.props;
         return(
             <div>
                 <h3 className='page_title'>SecondPage</h3>
-                <p>{this.props.greetingService.writeGreet()}</p>
+                <p>{greetingService.writeGreet()}</p>
                 <div className="persons">
-                    {this.props.persons.map((person, id) => (
+                    {persons.map((person, id) => (
                         <div key={id}>
                             <p>{id}) {person.name} {person.age}</p>
-                            <button>Delete</button>
                         </div>
                     ))}
                 </div>
@@ -39,7 +35,6 @@ SecondPage.propTypes = {
     }).isRequired
 };
 
-// export default SecondPage;
 export default withWire(
     SecondPage,
     ['greetingService'],

@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import { addPerson, deletePerson } from '../../actions';
+import { addPerson, deletePerson, sortByAge } from '../../actions';
 import { connect } from 'react-redux';
 import './firstPage.css';
 
 const mapDispatchToProps = dispatch => {
     return {
         addPerson: person => dispatch(addPerson(person)),
-        deletePerson: person => dispatch(deletePerson(person))
+        deletePerson: person => dispatch(deletePerson(person)),
+        sortByAge: () => dispatch(sortByAge())
     };
 };
 
@@ -15,8 +16,8 @@ const mapStateToProps = state => {
 };
 
 class ConnectedFirstPage extends Component {
-    constructor(props, persons) {
-        super(props, persons);
+    constructor(props) {
+        super(props);
         this.state = {
             count: 0,
             name: '',
@@ -82,7 +83,8 @@ class ConnectedFirstPage extends Component {
 
     render() {
         const { count } = this.state;
-        // console.log(this.props.persons);
+        const { persons } = this.props;
+        console.log(this.props.persons);
         return (
             <div>
                 <h3 className='page_title'>First page</h3>
@@ -103,8 +105,11 @@ class ConnectedFirstPage extends Component {
                         <button className='add_btn'>Add person</button>
                     </form>
                 </div>
+                <div>
+                    <button onClick={this.props.sortByAge}>Sort by age</button>
+                </div>
                 <div className="persons">
-                    {this.props.persons.map((person, id) => (
+                    {persons.map((person, id) => (
                         <div key={id}>
                             <p>{id}) {person.name} {person.age}</p>
                             <button onClick={() => this.props.deletePerson(id)}>Delete</button>
