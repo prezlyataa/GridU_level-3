@@ -1,16 +1,20 @@
 import React, { Component } from 'react';
-import { addPerson, deletePerson, sortByAge } from '../../actions';
+import { addPerson, deletePerson, sortByAge, signInAction } from '../../actions';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import withWire from '../../hocs/withWire';
 import PropTypes from 'prop-types';
 import { URLS } from '../../consts/apiConsts';
 import './firstPage.css';
 
+const autoBind = require('auto-bind');
+
 const mapDispatchToProps = dispatch => {
     return {
         addPerson: person => dispatch(addPerson(person)),
         deletePerson: person => dispatch(deletePerson(person)),
-        sortByAge: () => dispatch(sortByAge())
+        sortByAge: () => dispatch(sortByAge()),
+        signInAction: () => dispatch(signInAction())
     };
 };
 
@@ -25,15 +29,14 @@ class ConnectedFirstPage extends Component {
             name: '',
             age: null
         };
-        this.handleChangeName = this.handleChangeName.bind(this);
-        this.handleChangeAge = this.handleChangeAge.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.resetInputs = this.resetInputs.bind(this);
+        autoBind(this);
     }
 
     componentWillMount() {
         const { httpService } = this.props;
         httpService.get(URLS.products)
+            .then(response => console.log(response));
+        httpService.get(URLS.users)
             .then(response => console.log(response));
     }
 
@@ -42,6 +45,18 @@ class ConnectedFirstPage extends Component {
         this.setState({
             name: event.target.value,
         })
+    }
+
+    addNewUser() {
+        const { httpService } = this.props;
+        const newUser = {
+            id: 5,
+            login: "igor",
+            password: "igor123",
+            roleId: 1
+        };
+
+        httpService.post(URLS.users, newUser);
     }
 
     handleChangeAge(event) {
@@ -53,7 +68,7 @@ class ConnectedFirstPage extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        const {name, age} = this.state;
+        const { name, age } = this.state;
         const newPerson = {
             name: name,
             age: age
@@ -79,6 +94,12 @@ class ConnectedFirstPage extends Component {
         return (
             <div>
                 <h3 className='page_title'>First page</h3>
+                <div>
+                    <ul className='links'>
+                        <li><Link to='/firstPage'>First page</Link></li>
+                        <li><Link to='/secondPage'>Second page</Link></li>
+                    </ul>
+                </div>
                 <div className='page_form'>
                     <form
                         onSubmit={this.handleSubmit}
@@ -91,6 +112,7 @@ class ConnectedFirstPage extends Component {
                         <button className='add_btn'>Add person</button>
                     </form>
                 </div>
+                <div><button onClick={this.addNewUser}>Add user</button></div>
                 <div>
                     <button onClick={this.props.sortByAge}>Sort by age</button>
                 </div>

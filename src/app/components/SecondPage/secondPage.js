@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import withWire from '../../hocs/withWire';
 import './secondPage.css';
@@ -14,6 +15,12 @@ class ConnectedSecondPage extends Component {
         return(
             <div>
                 <h3 className='page_title'>SecondPage</h3>
+                <div>
+                    <ul className='links'>
+                        <li><Link to='/firstPage'>First page</Link></li>
+                        <li><Link to='/secondPage'>Second page</Link></li>
+                    </ul>
+                </div>
                 <p>{greetingService.writeGreet()}</p>
                 <div className="persons">
                     {persons.map((person, id) => (

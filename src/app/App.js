@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Route, Link, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { FirstPage } from './components/FirstPage/index';
 import { SecondPage } from './components/SecondPage/index';
+import { LoginPage } from './components/LoginPage/index';
 import PropTypes from 'prop-types';
 import dependencies, { registerDependencies } from './dependencies';
 import './App.css';
@@ -19,15 +20,9 @@ class App extends Component {
     render() {
         return (
            <div className='appContainer'>
-               <div>
-                   <ul className='links'>
-                       <li><Link to='/'>First page</Link></li>
-                       <li><Link to='/secondPage'>Second page</Link></li>
-                   </ul>
-               </div>
-               <hr/>
                <Switch>
-                   <Route exact path='/' component={ FirstPage }/>
+                   <Route exact path='/' component={ LoginPage }/>
+                   <Route path='/firstPage' component={ FirstPage }/>
                    <Route path='/secondPage' component={ SecondPage }/>
                </Switch>
            </div>

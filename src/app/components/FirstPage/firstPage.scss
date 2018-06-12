@@ -8,6 +8,21 @@ input[type=number]::-webkit-outer-spin-button {
   text-align: center;
 }
 
+.links {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+
+  a {
+    text-decoration: none;
+    margin: 0 10px;
+    background-color: orange;
+    padding: 5px 8px;
+    color: #fff;
+    border-radius: 5px;
+  }
+}
+
 .page_form {
   display: flex;
   justify-content: center;
