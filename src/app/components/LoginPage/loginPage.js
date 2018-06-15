@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addPerson, deletePerson, sortByAge } from '../../actions';
+import withWire from '../../hocs/withWire';
+import './loginPage.css';
 
 const autoBind = require('auto-bind');
 
@@ -22,29 +24,41 @@ class ConnectedLoginPage extends Component {
         autoBind(this);
     }
 
-    submit(values) {
-        console.log(values);
+    handleChange(e) {
+        this.setState({
+            [e.target.name]: e.target.value
+        });
     }
 
     render() {
+        console.log(this.state);
         return (
-            <div>
-                <h3>Login page</h3>
-                <div className="form">
-                    <div className="container">
-                        <h2>Sign In</h2>
-                        <form onSubmit={this.submit}>
-                            <input name="login"
-                                   type="text"
-                                   placeholder="Login"
-                            />
-                            <input name="password"
-                                   type="password"
-                                   placeholder="Password"
-                            />
-                            <button type="submit" className="blue">Sign In</button>
-                        </form>
-                    </div>
+            <div className="center">
+                <div className="card">
+                    <h1>Login</h1>
+                    <form>
+                        <input
+                            className="form-item"
+                            placeholder="Username"
+                            name="username"
+                            type="text"
+                            onChange={this.handleChange}
+                            required
+                        />
+                        <input
+                            className="form-item"
+                            placeholder="Password"
+                            name="password"
+                            type="password"
+                            onChange={this.handleChange}
+                            required
+                        />
+                        <input
+                            className="form-submit"
+                            value="Submit"
+                            type="submit"
+                        />
+                    </form>
                 </div>
             </div>
         )
@@ -53,4 +67,10 @@ class ConnectedLoginPage extends Component {
 
 const LoginPage = connect(mapStateToProps, mapDispatchToProps)(ConnectedLoginPage);
 
-export default LoginPage;
+// export default LoginPage;
+
+export default withWire(
+    LoginPage,
+    ['authService'],
+    authService  => ({ authService })
+);
