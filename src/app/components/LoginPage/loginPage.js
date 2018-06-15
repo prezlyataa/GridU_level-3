@@ -1,17 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addPerson, deletePerson, sortByAge } from '../../actions';
 import withWire from '../../hocs/withWire';
 import './loginPage.css';
 
 const autoBind = require('auto-bind');
 
 const mapDispatchToProps = dispatch => {
-    return {
-        addPerson: person => dispatch(addPerson(person)),
-        deletePerson: person => dispatch(deletePerson(person)),
-        sortByAge: () => dispatch(sortByAge())
-    };
+    return {};
 };
 
 const mapStateToProps = state => {
@@ -31,7 +26,6 @@ class ConnectedLoginPage extends Component {
     }
 
     render() {
-        console.log(this.state);
         return (
             <div className="center">
                 <div className="card">
@@ -66,8 +60,6 @@ class ConnectedLoginPage extends Component {
 }
 
 const LoginPage = connect(mapStateToProps, mapDispatchToProps)(ConnectedLoginPage);
-
-// export default LoginPage;
 
 export default withWire(
     LoginPage,
