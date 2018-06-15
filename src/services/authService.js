@@ -3,29 +3,29 @@ import decode from 'jwt-decode';
 export default class AuthService {
     // Initializing important variables
     constructor(domain) {
-        this.domain = domain || 'http://localhost:8080' // API server domain
-        this.fetch = this.fetch.bind(this) // React binding stuff
-        this.login = this.login.bind(this)
+        this.domain = domain || 'http://localhost:3001'; // API server domain
+        this.fetch = this.fetch.bind(this); // React binding stuff
+        this.login = this.login.bind(this);
         this.getProfile = this.getProfile.bind(this)
     }
 
     login(username, password) {
         // Get a token from api server using the fetch api
-        return this.fetch(`${this.domain}/login`, {
+        return this.fetch(`${this.domain}`, {
             method: 'POST',
             body: JSON.stringify({
                 username,
                 password
             })
         }).then(res => {
-            this.setToken(res.token) // Setting the token in localStorage
+            this.setToken(res.token); // Setting the token in localStorage
             return Promise.resolve(res);
         })
     }
 
     loggedIn() {
         // Checks if there is a saved token and it's still valid
-        const token = this.getToken() // GEtting token from localstorage
+        const token = this.getToken(); // GEtting token from localstorage
         return !!token && !this.isTokenExpired(token) // handwaiving here
     }
 

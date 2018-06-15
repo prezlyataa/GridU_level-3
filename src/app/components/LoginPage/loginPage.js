@@ -19,10 +19,29 @@ class ConnectedLoginPage extends Component {
         autoBind(this);
     }
 
+    componentWillMount(){
+        const { authService } = this.props;
+        if(authService.loggedIn())
+            this.props.history.replace('/firstPage');
+    }
+
     handleChange(e) {
         this.setState({
             [e.target.name]: e.target.value
         });
+    }
+
+    handleFormSubmit(e){
+        const { authService } = this.props;
+        e.preventDefault();
+
+        authService.login(this.state.username,this.state.password)
+            .then(res => {
+                this.props.history.replace('/firstPage');
+            })
+            .catch(err =>{
+                alert(err);
+            })
     }
 
     render() {
@@ -30,7 +49,7 @@ class ConnectedLoginPage extends Component {
             <div className="center">
                 <div className="card">
                     <h1>Login</h1>
-                    <form>
+                    <form onSubmit={this.handleFormSubmit}>
                         <input
                             className="form-item"
                             placeholder="Username"
