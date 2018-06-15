@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addPerson, deletePerson, sortByAge } from '../../actions';
-import { Field, reduxForm } from 'redux-form';
 
 const autoBind = require('auto-bind');
 
@@ -35,13 +34,11 @@ class ConnectedLoginPage extends Component {
                     <div className="container">
                         <h2>Sign In</h2>
                         <form onSubmit={this.submit}>
-                            <Field name="login"
-                                   component="input"
+                            <input name="login"
                                    type="text"
                                    placeholder="Login"
                             />
-                            <Field name="password"
-                                   component="input"
+                            <input name="password"
                                    type="password"
                                    placeholder="Password"
                             />
@@ -54,15 +51,6 @@ class ConnectedLoginPage extends Component {
     }
 }
 
-
 const LoginPage = connect(mapStateToProps, mapDispatchToProps)(ConnectedLoginPage);
 
-export default reduxForm({
-    form: 'signin'
-})(LoginPage);
-
-// export default withWire(
-//     LoginPage,
-//     ['httpService'],
-//     httpService  => ({ httpService })
-// );
+export default LoginPage;

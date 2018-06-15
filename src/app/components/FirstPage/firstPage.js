@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { addPerson, deletePerson, sortByAge, signInAction } from '../../actions';
+import { addPerson, deletePerson, sortByAge } from '../../actions';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import withWire from '../../hocs/withWire';
@@ -14,7 +14,6 @@ const mapDispatchToProps = dispatch => {
         addPerson: person => dispatch(addPerson(person)),
         deletePerson: person => dispatch(deletePerson(person)),
         sortByAge: () => dispatch(sortByAge()),
-        signInAction: () => dispatch(signInAction())
     };
 };
 
