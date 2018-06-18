@@ -87,6 +87,11 @@ class ConnectedFirstPage extends Component {
         this.formRef.reset();
     }
 
+    handleLogOut() {
+        this.props.authService.logout();
+        this.props.history.replace('/');
+    }
+
     render() {
         const { persons } = this.props;
         // console.log(this.props.persons);
@@ -98,6 +103,7 @@ class ConnectedFirstPage extends Component {
                         <li><Link to='/firstPage'>First page</Link></li>
                         <li><Link to='/secondPage'>Second page</Link></li>
                     </ul>
+                    <button onClick={this.handleLogOut}>Logout</button>
                 </div>
                 <div className='page_form'>
                     <form
@@ -141,6 +147,6 @@ FirstPage.propTypes = {
 
 export default withWire(
     FirstPage,
-    ['httpService'],
-    httpService  => ({ httpService })
+    ['httpService', 'authService'],
+    (httpService, authService)  => ({ httpService, authService })
 );

@@ -16,30 +16,42 @@ const mapStateToProps = state => {
 class ConnectedLoginPage extends Component {
     constructor(props){
         super(props);
+        this.state = {
+            login: null,
+            password: null
+        };
         autoBind(this);
     }
 
-    componentWillMount(){
-        const { authService } = this.props;
-        if(authService.loggedIn())
-            this.props.history.replace('/firstPage');
+    // componentWillMount(){
+    //     const { authService } = this.props;
+    //     if(!authService.loggedIn()) {
+    //         this.props.history.replace('/firstPage')
+    //     }
+    // }
+
+    handleChangeLogin(e) {
+        this.setState({
+            login: e.target.value
+        });
     }
 
-    handleChange(e) {
+    handleChangePassword(e) {
         this.setState({
-            [e.target.name]: e.target.value
+            password: e.target.value
         });
     }
 
     handleFormSubmit(e){
         const { authService } = this.props;
+        const { login, password } = this.state;
         e.preventDefault();
 
-        authService.login(this.state.username,this.state.password)
-            .then(res => {
+        authService.login(login, password)
+            .then(() => {
                 this.props.history.replace('/firstPage');
             })
-            .catch(err =>{
+            .catch(err => {
                 alert(err);
             })
     }
@@ -52,10 +64,10 @@ class ConnectedLoginPage extends Component {
                     <form onSubmit={this.handleFormSubmit}>
                         <input
                             className="form-item"
-                            placeholder="Username"
+                            placeholder="Login"
                             name="username"
                             type="text"
-                            onChange={this.handleChange}
+                            onChange={this.handleChangeLogin}
                             required
                         />
                         <input
@@ -63,7 +75,7 @@ class ConnectedLoginPage extends Component {
                             placeholder="Password"
                             name="password"
                             type="password"
-                            onChange={this.handleChange}
+                            onChange={this.handleChangePassword}
                             required
                         />
                         <input
