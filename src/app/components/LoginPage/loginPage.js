@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import withWire from '../../hocs/withWire';
+import { URLS } from '../../consts/apiConsts';
 import './loginPage.css';
 
 const autoBind = require('auto-bind');
@@ -43,15 +44,24 @@ class ConnectedLoginPage extends Component {
     }
 
     handleFormSubmit(e){
-        const { authService } = this.props;
+        const { authService, httpService } = this.props;
         const { login, password } = this.state;
         e.preventDefault();
 
         authService.login(login, password)
             .then(() => {
-                this.props.history.replace('/firstPage');
+                httpService.get(URLS.users)
+                    .then(users => {
+                        for(let user of users) {
+                            if(login !== user.login && password !== user.password) {
+                                alert('Wrong data');
+                            }
+                            this.props.history.replace('/firstPage');
+                        }
+                    });
             })
             .catch(err => {
+                alert('Wrong login or password');
                 alert(err);
             })
     }
@@ -94,6 +104,6 @@ const LoginPage = connect(mapStateToProps, mapDispatchToProps)(ConnectedLoginPag
 
 export default withWire(
     LoginPage,
-    ['authService'],
-    authService  => ({ authService })
+    ['authService', 'httpService'],
+    (authService, httpService)  => ({ authService, httpService })
 );

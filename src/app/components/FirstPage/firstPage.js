@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import withWire from '../../hocs/withWire';
 import PropTypes from 'prop-types';
 import { URLS } from '../../consts/apiConsts';
+import { Layout } from '../Layout/index';
 import './firstPage.css';
 
 const autoBind = require('auto-bind');
@@ -31,13 +32,13 @@ class ConnectedFirstPage extends Component {
         autoBind(this);
     }
 
-    componentWillMount() {
-        const { httpService } = this.props;
-        httpService.get(URLS.products)
-            .then(response => console.log(response));
-        httpService.get(URLS.users)
-            .then(response => console.log(response));
-    }
+    // componentWillMount() {
+    //     const { httpService } = this.props;
+    //     httpService.get(URLS.products)
+    //         .then(response => console.log(response));
+    //     httpService.get(URLS.users)
+    //         .then(response => console.log(response));
+    // }
 
     handleChangeName(event) {
         event.preventDefault();
@@ -96,7 +97,7 @@ class ConnectedFirstPage extends Component {
         const { persons } = this.props;
         // console.log(this.props.persons);
         return (
-            <div>
+            <Layout history={this.props.history}>
                 <h3 className='page_title'>First page</h3>
                 <div>
                     <ul className='links'>
@@ -129,7 +130,7 @@ class ConnectedFirstPage extends Component {
                         </div>
                     ))}
                 </div>
-            </div>
+            </Layout>
         );
     }
 }

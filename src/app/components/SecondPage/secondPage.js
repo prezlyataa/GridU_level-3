@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import withWire from '../../hocs/withWire';
+import { Layout } from '../Layout/index';
 import './secondPage.css';
 
 const mapStateToProps = state => {
@@ -13,7 +14,7 @@ class ConnectedSecondPage extends Component {
     render() {
         const { greetingService, persons } = this.props;
         return(
-            <div>
+            <Layout history={this.props.history}>
                 <h3 className='page_title'>SecondPage</h3>
                 <div>
                     <ul className='links'>
@@ -29,7 +30,7 @@ class ConnectedSecondPage extends Component {
                         </div>
                     ))}
                 </div>
-            </div>
+            </Layout>
         )
     }
 }

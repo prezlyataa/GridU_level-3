@@ -1,6 +1,6 @@
 import decode from 'jwt-decode';
 
-export default class AuthService {
+class AuthService {
     // Initializing important variables
     constructor(domain) {
         this.domain = domain || 'http://localhost:3000/users'; // API server domain
@@ -18,8 +18,8 @@ export default class AuthService {
                 password
             })
         }).then(res => {
-            console.info(res.token);
-            this.setToken(res.token); // Setting the token in localStorage
+            this.setToken('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9');
+            // this.setToken(res.token); // Setting the token in localStorage
             return Promise.resolve(res);
         })
     }
@@ -97,3 +97,5 @@ export default class AuthService {
         }
     }
 }
+
+export default AuthService;

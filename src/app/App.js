@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { FirstPage } from './components/FirstPage/index';
-import { SecondPage } from './components/SecondPage/index';
-import { LoginPage } from './components/LoginPage/index';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { RouteSchema } from "./routes";
 import PropTypes from 'prop-types';
 import dependencies, { registerDependencies } from './dependencies';
 import './App.css';
@@ -22,9 +20,7 @@ class App extends Component {
            <div className='appContainer'>
                <Router>
                    <div>
-                       <Route exact path='/' component={ LoginPage }/>
-                       <Route path='/firstPage' component={ FirstPage }/>
-                       <Route path='/secondPage' component={ SecondPage }/>
+                       <RouteSchema />
                    </div>
                </Router>
            </div>
