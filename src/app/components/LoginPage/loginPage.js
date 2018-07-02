@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import withWire from '../../hocs/withWire';
+import classnames from 'classnames';
 import { URLS } from '../../consts/apiConsts';
 import './loginPage.css';
 
@@ -18,8 +19,8 @@ class ConnectedLoginPage extends Component {
     constructor(props){
         super(props);
         this.state = {
-            login: null,
-            password: null
+            login: '',
+            password: ''
         };
         autoBind(this);
     }
@@ -50,42 +51,49 @@ class ConnectedLoginPage extends Component {
 
         authService.login(login, password)
             .then(() => {
-                httpService.get(URLS.users)
-                    .then(users => {
-                        for(let user of users) {
-                            if(login !== user.login && password !== user.password) {
-                                alert('Wrong data');
-                            }
-                            this.props.history.replace('/firstPage');
-                        }
-                    });
+                if(authService.getToken()) {
+                    this.props.history.replace('/firstPage');
+                } else {
+                    alert('Wrong login or password');
+                }
             })
             .catch(err => {
                 alert('Wrong login or password');
                 alert(err);
-            })
+            });
     }
 
     render() {
+        const inputLoginClass = classnames({
+            'form-item': true,
+            'invalid': this.state.login.length < 3
+        });
+        const inputPasswordClass = classnames({
+            'form-item': true,
+            'invalid': this.state.password.length < 3
+        });
+
         return (
             <div className="center">
                 <div className="card">
                     <h1>Login</h1>
                     <form onSubmit={this.handleFormSubmit}>
                         <input
-                            className="form-item"
+                            className={ inputLoginClass }
                             placeholder="Login"
                             name="username"
                             type="text"
                             onChange={this.handleChangeLogin}
+                            minLength="3"
                             required
                         />
                         <input
-                            className="form-item"
+                            className={ inputPasswordClass }
                             placeholder="Password"
                             name="password"
                             type="password"
                             onChange={this.handleChangePassword}
+                            minLength="3"
                             required
                         />
                         <input

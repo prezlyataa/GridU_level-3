@@ -10,18 +10,36 @@ class AuthService {
     }
 
     login(login, password) {
-        // Get a token from api server using the fetch api
-        return this.fetch(`${this.domain}`, {
-            method: 'POST',
-            body: JSON.stringify({
-                login,
-                password
+        return fetch(`${this.domain}`)
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Something went wrong ...');
+                }
             })
-        }).then(res => {
-            this.setToken('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9');
-            // this.setToken(res.token); // Setting the token in localStorage
-            return Promise.resolve(res);
-        })
+            .then(data => {
+                console.log(data);
+                return this.fetch(`${this.domain}`, {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        login,
+                        password
+                    })
+                }).then(res => {
+                    if(data.filter(user => {
+                        return user.login === res.login && user.password === res.password
+                    }).length) {
+                        this.setToken('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9');
+                        // this.setToken(res.token); // Setting the token in localStorage
+                        return Promise.resolve(res);
+                    }
+
+                })
+            })
+            .catch(err => {
+                console.log(err);
+            });
     }
 
     loggedIn() {
@@ -97,5 +115,4 @@ class AuthService {
         }
     }
 }
-
 export default AuthService;
