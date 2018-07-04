@@ -28,7 +28,7 @@ class ConnectedLoginPage extends Component {
     componentWillMount(){
         const { authService } = this.props;
         if(authService.getToken()) {
-            this.props.history.replace('/firstPage')
+            this.props.history.replace('/productsPage')
         }
     }
 
@@ -52,7 +52,7 @@ class ConnectedLoginPage extends Component {
         authService.login(login, password)
             .then(() => {
                 if(authService.getToken()) {
-                    this.props.history.replace('/firstPage');
+                    this.props.history.replace('/productsPage');
                 } else {
                     alert('Wrong login or password');
                 }

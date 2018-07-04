@@ -6,7 +6,7 @@ import withWire from '../../hocs/withWire';
 import PropTypes from 'prop-types';
 import { URLS } from '../../consts/apiConsts';
 import { Layout } from '../Layout/index';
-import './firstPage.css';
+import './productsPage.css';
 
 const autoBind = require('auto-bind');
 
@@ -107,7 +107,7 @@ class ConnectedFirstPage extends Component {
                 <h3 className='page_title'>First page</h3>
                 <div>
                     <ul className='links'>
-                        <li><Link to='/firstPage'>First page</Link></li>
+                        <li><Link to='/productsPage'>First page</Link></li>
                         <li><Link to='/secondPage'>Second page</Link></li>
                     </ul>
                     <button onClick={this.handleLogOut}>Logout</button>
@@ -141,9 +141,9 @@ class ConnectedFirstPage extends Component {
     }
 }
 
-const FirstPage = connect(mapStateToProps, mapDispatchToProps)(ConnectedFirstPage);
+const ProductsPage = connect(mapStateToProps, mapDispatchToProps)(ConnectedFirstPage);
 
-FirstPage.propTypes = {
+ProductsPage.propTypes = {
     httpService: PropTypes.shape({
         get: PropTypes.func,
         post: PropTypes.func,
@@ -153,7 +153,7 @@ FirstPage.propTypes = {
 };
 
 export default withWire(
-    FirstPage,
+    ProductsPage,
     ['httpService', 'authService'],
     (httpService, authService)  => ({ httpService, authService })
 );

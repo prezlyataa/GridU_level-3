@@ -18,7 +18,7 @@ class ConnectedSecondPage extends Component {
                 <h3 className='page_title'>SecondPage</h3>
                 <div>
                     <ul className='links'>
-                        <li><Link to='/firstPage'>First page</Link></li>
+                        <li><Link to='/productsPage'>First page</Link></li>
                         <li><Link to='/secondPage'>Second page</Link></li>
                     </ul>
                 </div>
