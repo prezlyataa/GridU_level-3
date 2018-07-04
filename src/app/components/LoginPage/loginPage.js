@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import withWire from '../../hocs/withWire';
 import classnames from 'classnames';
-import { URLS } from '../../consts/apiConsts';
 import './loginPage.css';
 
 const autoBind = require('auto-bind');
@@ -46,7 +45,7 @@ class ConnectedLoginPage extends Component {
     }
 
     handleFormSubmit(e){
-        const { authService, httpService } = this.props;
+        const { authService } = this.props;
         const { login, password } = this.state;
         e.preventDefault();
 
@@ -55,7 +54,6 @@ class ConnectedLoginPage extends Component {
                 if(authService.getToken()) {
                     this.props.history.replace('/productsPage');
                 } else {
-                    // alert('Wrong login or password');
                     this.setState({
                         isValid: false
                     });
