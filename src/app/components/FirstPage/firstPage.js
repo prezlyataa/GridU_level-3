@@ -39,6 +39,12 @@ class ConnectedFirstPage extends Component {
     //     httpService.get(URLS.users)
     //         .then(response => console.log(response));
     // }
+    componentWillMount(){
+        const { authService } = this.props;
+        if(!authService.getToken()) {
+            this.props.history.replace('/');
+        }
+    }
 
     handleChangeName(event) {
         event.preventDefault();

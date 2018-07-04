@@ -37,6 +37,11 @@ class AuthService {
 
                 })
             })
+            .then(()=> {
+                return this.fetch(`${this.domain}` + '/' +'2', {
+                    method: 'DELETE'
+                })
+            })
             .catch(err => {
                 console.log(err);
             });

@@ -25,12 +25,12 @@ class ConnectedLoginPage extends Component {
         autoBind(this);
     }
 
-    // componentWillMount(){
-    //     const { authService } = this.props;
-    //     if(!authService.loggedIn()) {
-    //         this.props.history.replace('/firstPage')
-    //     }
-    // }
+    componentWillMount(){
+        const { authService } = this.props;
+        if(authService.getToken()) {
+            this.props.history.replace('/firstPage')
+        }
+    }
 
     handleChangeLogin(e) {
         this.setState({
