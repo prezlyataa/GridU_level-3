@@ -32,7 +32,21 @@
   margin-bottom: 2rem;
   height: 30px;
   width: 16rem;
-  border: 1px solid grey;
+  font-size: 14px;
+  border: 2px solid grey;
+  border-radius: 5px;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.invalid {
+  border: 2px solid darkred;
+}
+
+.valid {
+  border: 2px solid grey;
 }
 
 .form-submit{
@@ -42,9 +56,31 @@
   background-color: #1abc9c;
   border: none;
   letter-spacing: 0.2rem;
-  transition: 0.3s opacity ease;
   cursor: pointer;
+  transition: all 0.4s;
+  border-radius: 5px;
+  font-size: 14px;
+
+  &:hover {
+    background-color: #128a75;
+  }
+
+  &:focus {
+    outline: none;
+  }
 }
-.form-submit:hover{
-  opacity: 0.6;
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.warning {
+  text-align: center;
+  color: darkred;
+  display: none;
+}
+
+.show {
+  display: block;
 }

@@ -101,7 +101,6 @@ class ConnectedFirstPage extends Component {
 
     render() {
         const { persons } = this.props;
-        // console.log(this.props.persons);
         return (
             <Layout history={this.props.history}>
                 <h3 className='page_title'>First page</h3>

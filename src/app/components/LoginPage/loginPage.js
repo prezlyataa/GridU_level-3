@@ -20,7 +20,8 @@ class ConnectedLoginPage extends Component {
         super(props);
         this.state = {
             login: '',
-            password: ''
+            password: '',
+            isValid: true
         };
         autoBind(this);
     }
@@ -54,7 +55,10 @@ class ConnectedLoginPage extends Component {
                 if(authService.getToken()) {
                     this.props.history.replace('/productsPage');
                 } else {
-                    alert('Wrong login or password');
+                    // alert('Wrong login or password');
+                    this.setState({
+                        isValid: false
+                    });
                 }
             })
             .catch(err => {
@@ -64,13 +68,24 @@ class ConnectedLoginPage extends Component {
     }
 
     render() {
+        const { login, password, isValid } = this.state;
         const inputLoginClass = classnames({
             'form-item': true,
-            'invalid': this.state.login.length < 3
+            'invalid': login.length >= 1,
+            'valid': login.length > 3
         });
         const inputPasswordClass = classnames({
             'form-item': true,
-            'invalid': this.state.password.length < 3
+            'invalid': password.length >= 1,
+            'valid': password.length > 3
+        });
+        const btnSubmit = classnames({
+            'form-submit': true,
+            'disabled': login.length < 3 || password.length < 3
+        });
+        const warning = classnames({
+            'warning': true,
+            'show': !isValid
         });
 
         return (
@@ -97,10 +112,11 @@ class ConnectedLoginPage extends Component {
                             required
                         />
                         <input
-                            className="form-submit"
+                            className={ btnSubmit }
                             value="Submit"
                             type="submit"
                         />
+                        <p className={ warning }>Wrong login or password!</p>
                     </form>
                 </div>
             </div>
