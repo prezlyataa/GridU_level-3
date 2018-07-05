@@ -11,6 +11,32 @@
       "login": "stan",
       "password": "stan123",
       "roleId": 1
+    },
+    {
+      "id": 5,
+      "login": "igor",
+      "password": "igor123",
+      "roleId": 1
+    },
+    {
+      "login": "stan",
+      "password": "stan123",
+      "id": 6
+    },
+    {
+      "login": "stan",
+      "password": "stan123",
+      "id": 7
+    },
+    {
+      "login": "stan",
+      "password": "stan123",
+      "id": 8
+    },
+    {
+      "login": "stan",
+      "password": "stan123",
+      "id": 9
     }
   ],
   "roles": [

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import withWire from '../../hocs/withWire';
 import PropTypes from 'prop-types';
 import { URLS } from '../../consts/apiConsts';
-import { Layout } from '../Layout/index';
+import { Layout } from '../Layout/';
 import './productsPage.css';
 
 const autoBind = require('auto-bind');
@@ -39,7 +39,16 @@ class ConnectedFirstPage extends Component {
     //     httpService.get(URLS.users)
     //         .then(response => console.log(response));
     // }
+
+    componentWillUpdate() {
+        window.addEventListener('isToken', this.isToken);
+    }
+
     componentWillMount(){
+        this.isToken();
+    }
+
+    isToken() {
         const { authService } = this.props;
         if(!authService.getToken()) {
             this.props.history.replace('/');

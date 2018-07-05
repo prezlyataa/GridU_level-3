@@ -1,0 +1,44 @@
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-size: 20px;
+
+  &__leftpart {
+    color: #1abc9c;
+  }
+
+  &__rightpart {
+    display: flex;
+
+    &-user, &-btn {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin: 0 5px;
+    }
+
+    &-user {
+      font-size: 18px;
+    }
+
+    &-btn {
+      button {
+        padding: 5px 10px;
+        border-radius: 5px;
+        color: #fff;
+        background-color: #1abc9c;
+        font-size: 14px;
+
+        &:hover {
+          cursor: pointer;
+        }
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+  }
+}

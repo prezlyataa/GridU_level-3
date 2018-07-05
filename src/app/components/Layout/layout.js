@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import withWire from '../../hocs/withWire';
+import { Header } from '../Header/'
 
 const autoBind = require('auto-bind');
 
@@ -26,14 +27,8 @@ class ConnectedLayout extends Component {
     render() {
         return(
             <div>
-                <div className="header">
-                    Header
-                    <button onClick={this.handleLogOut}>Logout</button>
-                </div>
+                <Header handleLogOut={this.handleLogOut} />
                 {this.props.children}
-                <div className="footer">
-                    Footer
-                </div>
             </div>
         );
     }
@@ -43,6 +38,6 @@ const Layout = connect(mapStateToProps)(ConnectedLayout);
 
 export default withWire(
     Layout,
-    ['httpService', 'authService'],
-    (httpService, authService)  => ({ httpService, authService })
+    ['authService'],
+    (authService)  => ({ authService })
 );
