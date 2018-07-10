@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { addPerson, deletePerson, sortByAge } from '../../actions';
+import { addPerson, deletePerson, sortByAge, getProducts } from '../../actions';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import withWire from '../../hocs/withWire';
@@ -15,11 +15,15 @@ const mapDispatchToProps = dispatch => {
         addPerson: person => dispatch(addPerson(person)),
         deletePerson: person => dispatch(deletePerson(person)),
         sortByAge: () => dispatch(sortByAge()),
+        getProducts: products => dispatch(getProducts(products))
     };
 };
 
 const mapStateToProps = state => {
-    return { persons: state.persons };
+    return {
+        persons: state.persons,
+        products: state. products
+    };
 };
 
 class ConnectedFirstPage extends Component {
@@ -45,7 +49,12 @@ class ConnectedFirstPage extends Component {
     }
 
     componentWillMount(){
+        const { httpService, getProducts } = this.props;
         this.isToken();
+        httpService.get(URLS.products)
+            .then(products => {
+                getProducts(products);
+            })
     }
 
     isToken() {
@@ -109,7 +118,8 @@ class ConnectedFirstPage extends Component {
     }
 
     render() {
-        const { persons } = this.props;
+        const { persons, products } = this.props;
+        console.log('products from redux store', products);
         return (
             <Layout history={this.props.history}>
                 <h3 className='page_title'>First page</h3>

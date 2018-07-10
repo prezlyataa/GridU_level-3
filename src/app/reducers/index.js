@@ -2,10 +2,12 @@ import {
     ADD_PERSON,
     DELETE_PERSON,
     SORT_BY_AGE,
+    GET_PRODUCTS
 } from '../consts/action-types';
 
 const initialState = {
-    persons: []
+    persons: [],
+    products: []
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -21,6 +23,9 @@ const rootReducer = (state = initialState, action) => {
             return {...state, persons: [
                 ...state.persons.sort((a,b) => {return a.age - b.age})
                 ]};
+        case GET_PRODUCTS:
+            // return { ...state, products: [...state.products, action.payload] };
+            console.log('dsds', state.products);
         default:
             return state;
     }
