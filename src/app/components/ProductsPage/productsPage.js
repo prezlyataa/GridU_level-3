@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import withWire from '../../hocs/withWire';
 import { URLS } from '../../consts/apiConsts';
 import { Layout } from '../Layout/';
+import { ProductsList } from '../ProductsList';
 import './productsPage.css';
 
 const autoBind = require('auto-bind');
@@ -104,6 +105,7 @@ class ConnectedFirstPage extends Component {
         console.log('products from redux store', products);
         return (
             <Layout history={this.props.history}>
+                <ProductsList/>
                 <h3 className='page_title'>First page</h3>
                 <div>
                     <ul className='links'>
