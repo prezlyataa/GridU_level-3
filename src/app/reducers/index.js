@@ -24,8 +24,7 @@ const rootReducer = (state = initialState, action) => {
                 ...state.persons.sort((a,b) => {return a.age - b.age})
                 ]};
         case GET_PRODUCTS:
-            // return { ...state, products: [...state.products, action.payload] };
-            console.log('dsds', state.products);
+            return { ...state, products: action.payload  };
         default:
             return state;
     }

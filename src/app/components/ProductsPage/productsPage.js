@@ -3,7 +3,6 @@ import { addPerson, deletePerson, sortByAge, getProducts } from '../../actions';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import withWire from '../../hocs/withWire';
-import PropTypes from 'prop-types';
 import { URLS } from '../../consts/apiConsts';
 import { Layout } from '../Layout/';
 import './productsPage.css';
@@ -36,14 +35,6 @@ class ConnectedFirstPage extends Component {
         autoBind(this);
     }
 
-    // componentWillMount() {
-    //     const { httpService } = this.props;
-    //     httpService.get(URLS.products)
-    //         .then(response => console.log(response));
-    //     httpService.get(URLS.users)
-    //         .then(response => console.log(response));
-    // }
-
     componentWillUpdate() {
         window.addEventListener('isToken', this.isToken);
     }
@@ -55,6 +46,9 @@ class ConnectedFirstPage extends Component {
             .then(products => {
                 getProducts(products);
             })
+            .catch(err => {
+                console.log(err);
+            });
     }
 
     isToken() {
@@ -69,18 +63,6 @@ class ConnectedFirstPage extends Component {
         this.setState({
             name: event.target.value,
         })
-    }
-
-    addNewUser() {
-        const { httpService } = this.props;
-        const newUser = {
-            id: 5,
-            login: "igor",
-            password: "igor123",
-            roleId: 1
-        };
-
-        httpService.post(URLS.users, newUser);
     }
 
     handleChangeAge(event) {
@@ -128,7 +110,6 @@ class ConnectedFirstPage extends Component {
                         <li><Link to='/productsPage'>First page</Link></li>
                         <li><Link to='/secondPage'>Second page</Link></li>
                     </ul>
-                    <button onClick={this.handleLogOut}>Logout</button>
                 </div>
                 <div className='page_form'>
                     <form
@@ -142,7 +123,6 @@ class ConnectedFirstPage extends Component {
                         <button className='add_btn'>Add person</button>
                     </form>
                 </div>
-                <div><button onClick={this.addNewUser}>Add user</button></div>
                 <div>
                     <button onClick={this.props.sortByAge}>Sort by age</button>
                 </div>
@@ -160,15 +140,6 @@ class ConnectedFirstPage extends Component {
 }
 
 const ProductsPage = connect(mapStateToProps, mapDispatchToProps)(ConnectedFirstPage);
-
-ProductsPage.propTypes = {
-    httpService: PropTypes.shape({
-        get: PropTypes.func,
-        post: PropTypes.func,
-        put: PropTypes.func,
-        delete: PropTypes.func
-    }).isRequired
-};
 
 export default withWire(
     ProductsPage,
