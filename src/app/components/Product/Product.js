@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import withWire from '../../hocs/withWire';
 import { getProducts } from '../../actions';
+import { Link } from 'react-router-dom';
 import './Product.css';
 
 const autoBind = require('auto-bind');

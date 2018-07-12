@@ -30,7 +30,7 @@ class ConnectedProductsList extends Component {
 
     loadMore() {
         this.setState({
-            visible: this.state.visible + 4
+            visible: this.state.visible + 5
         });
     }
 
