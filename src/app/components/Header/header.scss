@@ -1,3 +1,5 @@
+@import '../../mixin.scss';
+
 .header-container {
   display: flex;
   justify-content: space-between;
@@ -25,19 +27,7 @@
 
     &-btn {
       button {
-        padding: 5px 10px;
-        border-radius: 5px;
-        color: #fff;
-        background-color: #1abc9c;
-        font-size: 14px;
-
-        &:hover {
-          cursor: pointer;
-        }
-
-        &:focus {
-          outline: none;
-        }
+        @include btn(#1abc9c, #fff);
       }
     }
   }

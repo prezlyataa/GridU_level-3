@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import withWire from '../../hocs/withWire';
 import { getProducts } from '../../actions';
+import './Product.css';
 
 const autoBind = require('auto-bind');
 
@@ -22,12 +23,23 @@ class ConnectedProduct extends Component {
         super(props);
         autoBind(this);
     }
+
     render() {
         const { product } = this.props;
-        // console.log(product);
         return(
-            <div>
-                {/*<img src={product.image} alt="img"/>*/}
+            <div className='product'>
+                <h3 className='product__name'>{product.name}</h3>
+                <div className='product__image'>
+                    <img src={product.image} />
+                </div>
+                <p className='product__desc'>{product.description}</p>
+                <div className='product__details'>
+                    <h3 className='product__details-price'>$ {product.cost}</h3>
+                    <div className='product__details-btns'>
+                        <button className='product__details-btns__delete'>Delete</button>
+                        <button className='product__details-btns__details'>Details</button>
+                    </div>
+                </div>
             </div>
         );
     }

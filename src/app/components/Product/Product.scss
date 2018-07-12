@@ -1,0 +1,46 @@
+@import '../../mixin.scss';
+
+.product {
+  padding: 10px;
+  max-width: 500px;
+  border: 1px solid #333;
+  border-radius: 5px;
+  margin-bottom: 30px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &__image {
+    img {
+      max-width: 500px;
+      border-radius: 5px;
+    }
+  }
+
+  &__details {
+    display: flex;
+    justify-content: space-between;
+
+    &-price {
+      color: darkred;
+    }
+
+    &-btns {
+      display: flex;
+      align-items: center;
+
+      button {
+        margin: 0 5px;
+      }
+
+      &__delete {
+        @include btn(#ffa500, #fff);
+      }
+
+      &__details {
+        @include btn(#1abc9c, #fff);
+      }
+    }
+  }
+}

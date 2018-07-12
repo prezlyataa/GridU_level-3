@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Product } from '../Product';
 import withWire from '../../hocs/withWire';
 import { getProducts } from '../../actions';
+import './productList.css';
 
 const autoBind = require('auto-bind');
 
@@ -21,20 +22,31 @@ const mapStateToProps = state => {
 class ConnectedProductsList extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            visible: 5
+        };
         autoBind(this);
     }
+
+    loadMore() {
+        this.setState({
+            visible: this.state.visible + 4
+        });
+    }
+
     render() {
         const { products } = this.props;
         return(
             <div>
-                <h3>Products List</h3>
-                <Product/>
-                <div>
-                    {products.map((product, id) => (
-                        <div key={id}>
-                            <img src={product.image} />
-                        </div>
+                <div className='products_list'>
+                    {products.slice(0, this.state.visible).map((product, id) => (
+                        <Product key={id} product={product}/>
                     ))}
+                </div>
+                <div className='load_more'>
+                    {this.state.visible < products.length &&
+                     <button onClick={ this.loadMore } type="button" >Load more</button>
+                    }
                 </div>
             </div>
         );

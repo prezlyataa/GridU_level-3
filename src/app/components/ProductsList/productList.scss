@@ -1,0 +1,22 @@
+@import '../../mixin.scss';
+
+.products_list {
+  display: flex;
+  flex-flow: wrap;
+  justify-content: space-between;
+}
+
+.load_more {
+  text-align: center;
+  padding: 20px 0;
+
+  button {
+    @include btn(#1abc9c, #fff);
+  }
+}
+
+@media only screen and (max-width: 1060px) {
+  .products_list {
+    justify-content: center
+  }
+}
