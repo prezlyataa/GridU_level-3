@@ -31,7 +31,9 @@ class ConnectedProductsList extends Component {
                 <Product/>
                 <div>
                     {products.map((product, id) => (
-                        <div key={id}>{product.name}</div>
+                        <div key={id}>
+                            <img src={product.image} />
+                        </div>
                     ))}
                 </div>
             </div>

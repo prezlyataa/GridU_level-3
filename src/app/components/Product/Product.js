@@ -23,8 +23,12 @@ class ConnectedProduct extends Component {
         autoBind(this);
     }
     render() {
+        const { product } = this.props;
+        // console.log(product);
         return(
-            <div>Product</div>
+            <div>
+                {/*<img src={product.image} alt="img"/>*/}
+            </div>
         );
     }
 }
