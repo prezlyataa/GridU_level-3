@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { addPerson, deletePerson, sortByAge, getProducts } from '../../actions';
+import { getProducts } from '../../actions';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import withWire from '../../hocs/withWire';
 import { URLS } from '../../consts/apiConsts';
-import { Layout } from '../Layout/';
+import { Layout } from '../Layout';
 import { ProductsList } from '../ProductsList';
 import './productsPage.css';
 
@@ -12,9 +12,6 @@ const autoBind = require('auto-bind');
 
 const mapDispatchToProps = dispatch => {
     return {
-        addPerson: person => dispatch(addPerson(person)),
-        deletePerson: person => dispatch(deletePerson(person)),
-        sortByAge: () => dispatch(sortByAge()),
         getProducts: products => dispatch(getProducts(products))
     };
 };
@@ -29,10 +26,6 @@ const mapStateToProps = state => {
 class ConnectedFirstPage extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            name: '',
-            age: null
-        };
         autoBind(this);
     }
 
@@ -59,50 +52,12 @@ class ConnectedFirstPage extends Component {
         }
     }
 
-    handleChangeName(event) {
-        event.preventDefault();
-        this.setState({
-            name: event.target.value,
-        })
-    }
-
-    handleChangeAge(event) {
-        event.preventDefault();
-        this.setState({
-            age: event.target.value,
-        })
-    }
-
-    handleSubmit(event) {
-        event.preventDefault();
-        const { name, age } = this.state;
-        const newPerson = {
-            name: name,
-            age: age
-        };
-
-        this.props.addPerson(newPerson);
-
-        this.setState({
-            name: '',
-            age: null
-        });
-
-        this.resetInputs();
-    }
-
-    resetInputs() {
-        this.formRef.reset();
-    }
-
     handleLogOut() {
         this.props.authService.logout();
         this.props.history.replace('/');
     }
 
     render() {
-        const { persons, products } = this.props;
-        console.log('products from redux store', products);
         return (
             <Layout history={this.props.history}>
                 <ProductsList/>
@@ -112,29 +67,6 @@ class ConnectedFirstPage extends Component {
                         <li><Link to='/productsPage'>First page</Link></li>
                         <li><Link to='/secondPage'>Second page</Link></li>
                     </ul>
-                </div>
-                <div className='page_form'>
-                    <form
-                        onSubmit={this.handleSubmit}
-                        ref={(el) => this.formRef = el}
-                    >
-                       <div className='form_fields'>
-                           <input onChange={this.handleChangeName} type='text' placeholder='Name' required/>
-                           <input onChange={this.handleChangeAge} type='number' placeholder='Age' required/>
-                       </div>
-                        <button className='add_btn'>Add person</button>
-                    </form>
-                </div>
-                <div>
-                    <button onClick={this.props.sortByAge}>Sort by age</button>
-                </div>
-                <div className="persons">
-                    {persons.map((person, id) => (
-                        <div key={id}>
-                            <p>{id}) {person.name} {person.age}</p>
-                            <button onClick={() => this.props.deletePerson(id)}>Delete</button>
-                        </div>
-                    ))}
                 </div>
             </Layout>
         );
