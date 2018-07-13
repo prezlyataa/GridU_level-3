@@ -18,7 +18,6 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
     return {
-        persons: state.persons,
         products: state. products
     };
 };
@@ -61,7 +60,6 @@ class ConnectedFirstPage extends Component {
         return (
             <Layout history={this.props.history}>
                 <ProductsList/>
-                <h3 className='page_title'>First page</h3>
                 <div>
                     <ul className='links'>
                         <li><Link to='/productsPage'>First page</Link></li>

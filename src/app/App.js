@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { RouteSchema } from "./routes";
+import { RouteSchema } from './routes';
 import PropTypes from 'prop-types';
 import dependencies, { registerDependencies } from './dependencies';
 import './App.css';
