@@ -3,7 +3,6 @@ import { getProducts } from '../../actions';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import withWire from '../../hocs/withWire';
-import { URLS } from '../../consts/apiConsts';
 import { Layout } from '../Layout';
 import { ProductsList } from '../ProductsList';
 import './productsPage.css';
@@ -18,7 +17,7 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
     return {
-        products: state. products
+        products: state.products
     };
 };
 
@@ -28,20 +27,8 @@ class ConnectedFirstPage extends Component {
         autoBind(this);
     }
 
-    componentWillUpdate() {
-        window.addEventListener('isToken', this.isToken);
-    }
-
     componentWillMount(){
-        const { httpService, getProducts } = this.props;
         this.isToken();
-        httpService.get(URLS.products)
-            .then(products => {
-                getProducts(products);
-            })
-            .catch(err => {
-                console.log(err);
-            });
     }
 
     isToken() {

@@ -13,3 +13,9 @@
     outline: none;
   }
 }
+
+@mixin respond-to($media) {
+  @media (max-width: #{$media}) {
+    @content;
+  }
+}

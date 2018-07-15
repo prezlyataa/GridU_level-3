@@ -4,6 +4,10 @@
   display: flex;
   flex-flow: wrap;
   justify-content: space-between;
+
+  @include respond-to(1060px) {
+    justify-content: center
+  }
 }
 
 .load_more {
@@ -12,11 +16,5 @@
 
   button {
     @include btn(#1abc9c, #fff);
-  }
-}
-
-@media only screen and (max-width: 1060px) {
-  .products_list {
-    justify-content: center
   }
 }
