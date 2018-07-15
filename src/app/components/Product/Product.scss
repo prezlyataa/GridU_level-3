@@ -36,6 +36,10 @@
 
       &__details {
         @include btn(#1abc9c, #fff);
+        a {
+          text-decoration: none;
+          color: #fff;
+        }
       }
     }
   }

@@ -39,7 +39,7 @@ class ConnectedProduct extends Component {
                     <div className='product__details-btns'>
                         <button className='product__details-btns__delete'>Delete</button>
                         <button className='product__details-btns__details'>
-                            <Link to={{ pathname: `productDetailsPage/${product.id}`, query: { id: product.id } }}>Details</Link>
+                            <Link to={{ pathname: `productDetailsPage/${product.id}`, state: { product } }}>Details</Link>
                         </button>
                     </div>
                 </div>

@@ -23,25 +23,37 @@ class ConnectedProductDetailsPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            productId: null
+            currentProduct: {}
         };
         autoBind(this);
     }
 
-    componentWillMount() {
-        this.getProductId();
+    componentDidMount() {
+        this.getCurrentProduct();
     }
 
-    getProductId() {
+    getCurrentProduct() {
+        let ID = this.props.history.location.pathname.match(/[^\/]+$/)[0];
+
+        const { products } = this.props;
+        let product = products.filter(product => {
+            return product.id === parseInt(ID);
+        });
+
         this.setState({
-            productId: this.props.history.location.pathname.slice(-1)
+            currentProduct: product[0]
         });
     }
 
+    goBack() {
+        this.props.history.replace('/productsPage');
+    }
+
     render() {
-        console.log(this.state.productId);
+        console.log(this.state.currentProduct);
         return (
             <Layout history={this.props.history}>
+                <button onClick={this.goBack}>Back</button>
                 <div>PDD</div>
             </Layout>
         );
