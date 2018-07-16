@@ -25,7 +25,8 @@ class ConnectedProductDetailsPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            currentProduct: {}
+            currentProduct: {},
+            productCategory: ''
         };
         autoBind(this);
     }
@@ -49,6 +50,18 @@ class ConnectedProductDetailsPage extends Component {
                     currentProduct: product[0]
                 });
             })
+            .then(() => {
+                httpService.get(URLS.categories)
+                    .then(categories => {
+                        let productCategory = categories.filter(category => {
+                            return category.id === parseInt(this.state.currentProduct.categoryId);
+                        });
+
+                        this.setState({
+                            productCategory: productCategory[0].name
+                        });
+                    });
+            })
             .catch(err => {
                 console.log(err);
             });
@@ -65,8 +78,7 @@ class ConnectedProductDetailsPage extends Component {
     }
 
     render() {
-        const { currentProduct } = this.state;
-        console.log(currentProduct);
+        const { currentProduct, productCategory } = this.state;
         return (
             <Layout history={this.props.history}>
                 <div className='btn_back'>
@@ -95,7 +107,7 @@ class ConnectedProductDetailsPage extends Component {
                                 Gender: {currentProduct.gender}
                             </p>
                             <p className='details__leftpart-info__category'>
-                                Category: {currentProduct.categoryId}
+                                Category: {productCategory}
                             </p>
                         </div>
                     </div>
