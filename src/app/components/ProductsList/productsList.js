@@ -46,8 +46,16 @@ class ConnectedProductsList extends Component {
     }
 
     unCheck(){
-        let ref = 'checkbox';
-        this.refs[ref].checked = false;
+        let ref1 = 'checkbox',
+            ref2 = 'man-radio',
+            ref3 = 'woman-radio',
+            ref4 = 'unisex-radio',
+            arrOfRefs = [];
+
+        arrOfRefs.push(ref1, ref2, ref3, ref4);
+        arrOfRefs.forEach(ref => {
+            this.refs[ref].checked = false;
+        });
     }
 
     setGender(e) {
@@ -56,13 +64,8 @@ class ConnectedProductsList extends Component {
         });
     }
 
-    resetGender() {
-        let ref = 'gender-radio';
-        this.refs[ref].checked = false;
-    }
-
     filterProducts() {
-        const { available } = this.state;
+        const { available, gender } = this.state;
         const { products } = this.props;
         let filteredProducts = [];
 
@@ -70,11 +73,16 @@ class ConnectedProductsList extends Component {
             filteredProducts = products.filter(product => {
                 return product.count > 0;
             });
-            this.setState({
-                filteredProducts: filteredProducts,
-                clearFilter: false
+        }
+        if (gender !== null) {
+            filteredProducts = products.filter(product => {
+                return product.gender === gender;
             });
         }
+        this.setState({
+            filteredProducts: filteredProducts,
+            clearFilter: false
+        });
     }
 
     resetFilter() {
@@ -86,7 +94,6 @@ class ConnectedProductsList extends Component {
         });
 
         this.unCheck();
-        this.resetGender();
     }
 
     renderList() {
@@ -141,7 +148,8 @@ class ConnectedProductsList extends Component {
                                 name='gender-checkbox'
                                 onChange={this.setGender}
                                 value='Man'
-                                ref={'gender-radio'}/>
+                                ref={'man-radio'}
+                                />
                                 Male
                             </label><br/>
                             <label><input
@@ -149,7 +157,8 @@ class ConnectedProductsList extends Component {
                                 name='gender-checkbox'
                                 onChange={this.setGender}
                                 value='Woman'
-                                ref={'gender-radio'}/>
+                                ref={'woman-radio'}
+                                />
                                 Female
                             </label><br/>
                             <label><input
@@ -157,7 +166,8 @@ class ConnectedProductsList extends Component {
                                 name='gender-checkbox'
                                 onChange={this.setGender}
                                 value='Unisex'
-                                ref={'gender-radio'}/>
+                                ref={'unisex-radio'}
+                                />
                                 Unisex
                             </label>
                         </div>
