@@ -31,7 +31,7 @@ class ConnectedProduct extends Component {
             <div className='product'>
                 <h3 className='product__name'>{product.name}</h3>
                 <div className='product__image'>
-                    <img src={product.image} />
+                    <img src={product.image} alt='img'/>
                 </div>
                 <p className='product__desc'>{product.description}</p>
                 <div className='product__details'>

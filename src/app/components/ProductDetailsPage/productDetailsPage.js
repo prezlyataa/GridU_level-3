@@ -40,10 +40,10 @@ class ConnectedProductDetailsPage extends Component {
 
         httpService.get(URLS.products)
             .then(products => {
-                let ID = this.props.history.location.pathname.match(/[^\/]+$/)[0];
+                let ID = this.props.history.location.pathname.match(/[^/]+$/)[0];
 
                 let product = products.filter(product => {
-                    return product.id === parseInt(ID);
+                    return product.id === parseInt(ID, 10);
                 });
 
                 this.setState({
@@ -54,7 +54,7 @@ class ConnectedProductDetailsPage extends Component {
                 httpService.get(URLS.categories)
                     .then(categories => {
                         let productCategory = categories.filter(category => {
-                            return category.id === parseInt(this.state.currentProduct.categoryId);
+                            return category.id === parseInt(this.state.currentProduct.categoryId, 10);
                         });
 
                         this.setState({
