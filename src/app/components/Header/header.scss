@@ -1,33 +1,36 @@
 @import '../../mixin.scss';
 
-.header-container {
-  display: flex;
-  justify-content: space-between;
-  max-width: 1200px;
-  margin: 0 auto;
-  font-size: 20px;
+.header {
 
-  &__leftpart {
-    color: #1abc9c;
-  }
-
-  &__rightpart {
+  &-container {
     display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    font-size: 20px;
 
-    &-user, &-btn {
+    &__leftpart {
+      color: #1abc9c;
+    }
+
+    &__rightpart {
       display: flex;
-      flex-direction: column;
-      justify-content: center;
-      margin: 0 5px;
-    }
 
-    &-user {
-      font-size: 18px;
-    }
+      &-user, &-btn {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin: 0 5px;
+      }
 
-    &-btn {
-      button {
-        @include btn(#1abc9c, #fff);
+      &-user {
+        font-size: 18px;
+      }
+
+      &-btn {
+        button {
+          @include btn(#1abc9c, #fff);
+        }
       }
     }
   }
