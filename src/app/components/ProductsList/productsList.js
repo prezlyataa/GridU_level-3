@@ -23,10 +23,11 @@ class ConnectedProductsList extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            filteredProducts: [],
+            clearFilter: false,
             visible: 5,
             available: false,
-            filteredProducts: [],
-            clearFilter: false
+            gender: null
         };
         autoBind(this);
     }
@@ -38,9 +39,26 @@ class ConnectedProductsList extends Component {
     }
 
     availableCheck() {
+        const { available } = this.state;
         this.setState({
-            available: !this.state.available
+            available: !available
         });
+    }
+
+    unCheck(){
+        let ref = 'checkbox';
+        this.refs[ref].checked = false;
+    }
+
+    setGender(e) {
+        this.setState({
+            gender: e.currentTarget.value
+        });
+    }
+
+    resetGender() {
+        let ref = 'gender-radio';
+        this.refs[ref].checked = false;
     }
 
     filterProducts() {
@@ -63,15 +81,12 @@ class ConnectedProductsList extends Component {
         this.setState({
             available: false,
             clearFilter: true,
-            visible: 5
+            visible: 5,
+            gender: null
         });
 
         this.unCheck();
-    }
-
-    unCheck(){
-        let ref = 'checkbox';
-        this.refs[ref].checked = !this.refs[ref].checked;
+        this.resetGender();
     }
 
     renderList() {
@@ -111,12 +126,39 @@ class ConnectedProductsList extends Component {
                 <div className='filter'>
                     <div className='filter__top'>
                         <div className='filter__top-available'>
-                            <label>Available only:
+                            <label>
                                 <input
                                     type="checkbox"
                                     onClick={ this.availableCheck }
                                     ref={'checkbox'}
                                 />
+                                Available only
+                            </label>
+                        </div>
+                        <div className='filter__top-gender'>
+                            <label><input
+                                type="radio"
+                                name='gender-checkbox'
+                                onChange={this.setGender}
+                                value='Man'
+                                ref={'gender-radio'}/>
+                                Male
+                            </label><br/>
+                            <label><input
+                                type="radio"
+                                name='gender-checkbox'
+                                onChange={this.setGender}
+                                value='Woman'
+                                ref={'gender-radio'}/>
+                                Female
+                            </label><br/>
+                            <label><input
+                                type="radio"
+                                name='gender-checkbox'
+                                onChange={this.setGender}
+                                value='Unisex'
+                                ref={'gender-radio'}/>
+                                Unisex
                             </label>
                         </div>
                     </div>
