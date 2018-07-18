@@ -134,7 +134,7 @@ class ConnectedProductsList extends Component {
 
         if (from !== null && to !== null) {
             filteredProducts = products.filter(product => {
-                return product.cost > parseInt(from, 10) && product.cost < parseInt(to, 10);
+                return (product.cost > parseInt(from, 10) && product.cost < parseInt(to, 10));
             });
         }
 
@@ -213,7 +213,7 @@ class ConnectedProductsList extends Component {
                                 ref={'man-radio'}
                                 />
                                 Male
-                            </label><br/>
+                            </label>
                             <label><input
                                 type="radio"
                                 name='gender-checkbox'
@@ -222,7 +222,7 @@ class ConnectedProductsList extends Component {
                                 ref={'woman-radio'}
                                 />
                                 Female
-                            </label><br/>
+                            </label>
                             <label><input
                                 type="radio"
                                 name='gender-checkbox'
@@ -259,8 +259,8 @@ class ConnectedProductsList extends Component {
                             />
                         </div>
                         <div className='filter__bottom-btns'>
-                            <button onClick={ this.resetFilter }>Clear</button>
-                            <button onClick={ this.filterProducts }>Apply</button>
+                            <button className='filter__bottom-btns__clear' onClick={ this.resetFilter }>Clear</button>
+                            <button className='filter__bottom-btns__apply' onClick={ this.filterProducts }>Apply</button>
                         </div>
                     </div>
                 </div>

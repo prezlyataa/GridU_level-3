@@ -1,5 +1,43 @@
 @import '../../mixin.scss';
 
+input {
+  padding: 5px 10px;
+  border-radius: 5px;
+  margin-left: 10px;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.filter {
+  padding: 30px 20px;
+  background-color: aliceblue;
+  margin-bottom: 20px;
+
+  &__top {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__bottom {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 15px;
+
+    &-btns {
+      &__clear {
+        @include btn(#1abc9c, #fff);
+      }
+
+      &__apply {
+        @include btn(orange, #fff);
+        margin-left: 10px;
+      }
+    }
+  }
+}
+
 .products_list {
   display: flex;
   flex-flow: wrap;
