@@ -21,7 +21,7 @@ const mapStateToProps = state => {
     };
 };
 
-class ConnectedFirstPage extends Component {
+class ConnectedProductsPage extends Component {
     constructor(props) {
         super(props);
         autoBind(this);
@@ -58,7 +58,7 @@ class ConnectedFirstPage extends Component {
     }
 }
 
-const ProductsPage = connect(mapStateToProps, mapDispatchToProps)(ConnectedFirstPage);
+const ProductsPage = connect(mapStateToProps, mapDispatchToProps)(ConnectedProductsPage);
 
 export default withWire(
     ProductsPage,

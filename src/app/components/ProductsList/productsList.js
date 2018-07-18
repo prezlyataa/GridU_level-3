@@ -25,16 +25,19 @@ class ConnectedProductsList extends Component {
         this.state = {
             filteredProducts: [],
             clearFilter: false,
-            visible: 5,
+            visible: 6,
             available: false,
-            gender: null
+            gender: null,
+            rate: null,
+            from: null,
+            to: null
         };
         autoBind(this);
     }
 
     loadMore() {
         this.setState({
-            visible: this.state.visible + 5
+            visible: this.state.visible + 6
         });
     }
 
@@ -50,12 +53,22 @@ class ConnectedProductsList extends Component {
             ref2 = 'man-radio',
             ref3 = 'woman-radio',
             ref4 = 'unisex-radio',
-            arrOfRefs = [];
+            arrOfRefs = [],
+            rate,
+            from,
+            to;
 
         arrOfRefs.push(ref1, ref2, ref3, ref4);
         arrOfRefs.forEach(ref => {
             this.refs[ref].checked = false;
         });
+
+        rate = document.getElementById('rate');
+        rate.value = '';
+        from = document.getElementById('from');
+        from.value = '';
+        to = document.getElementById('to');
+        to.value = '';
     }
 
     setGender(e) {
@@ -64,8 +77,30 @@ class ConnectedProductsList extends Component {
         });
     }
 
+    setRate(e) {
+        e.preventDefault();
+        this.setState({
+            rate: e.target.value
+        });
+    }
+
+    setPriceFrom(e) {
+        e.preventDefault();
+        this.setState({
+            from: e.target.value
+        });
+    }
+
+    setPriceTo(e) {
+        e.preventDefault();
+        this.setState({
+            to: e.target.value
+        });
+    }
+
+
     filterProducts() {
-        const { available, gender } = this.state;
+        const { available, gender, rate, from, to } = this.state;
         const { products } = this.props;
         let filteredProducts = [];
 
@@ -79,6 +114,30 @@ class ConnectedProductsList extends Component {
                 return product.gender === gender;
             });
         }
+        if (rate !== null) {
+            filteredProducts = products.filter(product => {
+                return product.rating === parseInt(rate, 10);
+            });
+        }
+
+        if (from !== null) {
+            filteredProducts = products.filter(product => {
+                return product.cost > parseInt(from, 10);
+            });
+        }
+
+        if (to !== null) {
+            filteredProducts = products.filter(product => {
+                return product.cost < parseInt(to, 10);
+            });
+        }
+
+        if (from !== null && to !== null) {
+            filteredProducts = products.filter(product => {
+                return product.cost > parseInt(from, 10) && product.cost < parseInt(to, 10);
+            });
+        }
+
         this.setState({
             filteredProducts: filteredProducts,
             clearFilter: false
@@ -89,8 +148,11 @@ class ConnectedProductsList extends Component {
         this.setState({
             available: false,
             clearFilter: true,
-            visible: 5,
-            gender: null
+            visible: 6,
+            gender: null,
+            rate: null,
+            from: null,
+            to: null
         });
 
         this.unCheck();
@@ -171,8 +233,31 @@ class ConnectedProductsList extends Component {
                                 Unisex
                             </label>
                         </div>
+                        <div className='filter__top-rate'>
+                            Rating: <input
+                            type='number'
+                            placeholder='input rate from 1-5'
+                            id='rate'
+                            onChange={this.setRate}
+                        />
+                        </div>
                     </div>
                     <div className='filter__bottom'>
+                        <div className='filter__bottom-price'>
+                            Price:
+                            <input
+                                type="number"
+                                id='from'
+                                placeholder='from'
+                                onChange={this.setPriceFrom}
+                            />
+                            <input
+                                type="number"
+                                id='to'
+                                placeholder='to'
+                                onChange={this.setPriceTo}
+                            />
+                        </div>
                         <div className='filter__bottom-btns'>
                             <button onClick={ this.resetFilter }>Clear</button>
                             <button onClick={ this.filterProducts }>Apply</button>
