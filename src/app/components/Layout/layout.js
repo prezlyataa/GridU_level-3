@@ -25,7 +25,7 @@ class ConnectedLayout extends Component {
         autoBind(this);
     }
 
-    componentWillMount(){
+    componentDidMount(){
         const { httpService, getProducts } = this.props;
 
         httpService.get(URLS.products)

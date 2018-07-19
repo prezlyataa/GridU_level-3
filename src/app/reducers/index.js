@@ -2,12 +2,14 @@ import {
     ADD_PERSON,
     DELETE_PERSON,
     SORT_BY_AGE,
-    GET_PRODUCTS
+    GET_PRODUCTS,
+    LOAD_MORE
 } from '../consts/action-types';
 
 const initialState = {
     persons: [],
-    products: []
+    products: [],
+    visibleProducts: 6
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -25,6 +27,8 @@ const rootReducer = (state = initialState, action) => {
                 ]};
         case GET_PRODUCTS:
             return { ...state, products: action.payload  };
+        case LOAD_MORE:
+            return { visibleProducts: state.visibleProducts + action.payload };
         default:
             return state;
     }

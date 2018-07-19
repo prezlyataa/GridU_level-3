@@ -2,20 +2,22 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Product } from '../Product';
 import withWire from '../../hocs/withWire';
-import { getProducts } from '../../actions';
+import { getProducts, loadMore } from '../../actions';
 import './productList.css';
 
 const autoBind = require('auto-bind');
 
 const mapDispatchToProps = dispatch => {
     return {
-        getProducts: products => dispatch(getProducts(products))
+        getProducts: products => dispatch(getProducts(products)),
+        loadMore: (num) => dispatch(loadMore(num))
     };
 };
 
 const mapStateToProps = state => {
     return {
-        products: state.products
+        products: state.products,
+        visibleProducts: state.visibleProducts
     };
 };
 
@@ -35,7 +37,7 @@ class ConnectedProductsList extends Component {
         autoBind(this);
     }
 
-    loadMore() {
+    load_More() {
         this.setState({
             visible: this.state.visible + 6
         });
@@ -102,41 +104,49 @@ class ConnectedProductsList extends Component {
     filterProducts() {
         const { available, gender, rate, from, to } = this.state;
         const { products } = this.props;
-        let filteredProducts = [];
+        let filteredProducts;
 
-        if (available) {
-            filteredProducts = products.filter(product => {
-                return product.count > 0;
-            });
-        }
-        if (gender !== null) {
-            filteredProducts = products.filter(product => {
-                return product.gender === gender;
-            });
-        }
-        if (rate !== null) {
-            filteredProducts = products.filter(product => {
-                return product.rating === parseInt(rate, 10);
-            });
-        }
+        // filteredProducts = products.filter(product => {
+        //     return (
+        //         (available === true) ? product.count > 0 &&
+        //             (gender !== null ) ? product.gender === gender &&
+        //                 (rate !== null ) ? product.rating === parseInt(rate, 10)
+        //     );
+        // });
+        //
+        // if (available) {
+        //     filteredProducts = products.filter(product => {
+        //         return product.count > 0;
+        //     });
+        // }
+        // if (gender !== null) {
+        //     filteredProducts = products.filter(product => {
+        //         return product.gender === gender;
+        //     });
+        // }
+        // if (rate !== null) {
+        //     filteredProducts = products.filter(product => {
+        //         return product.rating === parseInt(rate, 10);
+        //     });
+        // }
 
-        if (from !== null) {
-            filteredProducts = products.filter(product => {
-                return product.cost > parseInt(from, 10);
-            });
-        }
-
-        if (to !== null) {
-            filteredProducts = products.filter(product => {
-                return product.cost < parseInt(to, 10);
-            });
-        }
-
-        if (from !== null && to !== null) {
-            filteredProducts = products.filter(product => {
-                return (product.cost > parseInt(from, 10) && product.cost < parseInt(to, 10));
-            });
-        }
+        // if (from !== null) {
+        //     filteredProducts = products.filter(product => {
+        //         return product.cost > parseInt(from, 10);
+        //     });
+        // }
+        //
+        // if (to !== null) {
+        //     filteredProducts = products.filter(product => {
+        //         return product.cost < parseInt(to, 10);
+        //     });
+        // }
+        //
+        // if (from !== null && to !== null) {
+        //     filteredProducts = products.filter(product => {
+        //         return (product.cost > parseInt(from, 10) && product.cost < parseInt(to, 10));
+        //     });
+        // }
 
         this.setState({
             filteredProducts: filteredProducts,
@@ -160,14 +170,14 @@ class ConnectedProductsList extends Component {
 
     renderList() {
         const { products } = this.props;
-        const { filteredProducts, clearFilter } = this.state;
+        const { filteredProducts, clearFilter, visible } = this.state;
 
         if (filteredProducts.length > 0 && !clearFilter) {
-            return filteredProducts.slice(0, this.state.visible).map((product, id) => (
+            return filteredProducts.slice(0, visible).map((product, id) => (
                 <Product key={id} product={product}/>
             ));
         } else {
-            return products.slice(0, this.state.visible).map((product, id) => (
+            return products.slice(0, visible).map((product, id) => (
                 <Product key={id} product={product}/>
             ));
         }
@@ -179,17 +189,17 @@ class ConnectedProductsList extends Component {
 
         if (filteredProducts.length > 0 && !clearFilter) {
             if (visible < filteredProducts.length) {
-                return <button onClick={ this.loadMore } type="button" >Load more</button>
+                return <button onClick={ this.load_More } type="button" >Load more</button>
             }
         } else {
             if (visible < products.length) {
-                return <button onClick={ this.loadMore } type="button" >Load more</button>
+                return <button onClick={ this.load_More } type="button" >Load more</button>
             }
         }
     }
 
     render() {
-        console.log(this.state);
+        console.table(this.state);
         return(
             <div>
                 <div className='filter'>
