@@ -26,7 +26,9 @@ class ConnectedProductDetailsPage extends Component {
         super(props);
         this.state = {
             currentProduct: {},
-            productCategory: ''
+            productCategory: '',
+            productCategoryId: null,
+            editing: false
         };
         autoBind(this);
     }
@@ -58,7 +60,8 @@ class ConnectedProductDetailsPage extends Component {
                         });
 
                         this.setState({
-                            productCategory: productCategory[0].name
+                            productCategory: productCategory[0].name,
+                            productCategoryId: productCategory[0].id
                         });
                     });
             })
@@ -77,13 +80,58 @@ class ConnectedProductDetailsPage extends Component {
         });
     }
 
-    render() {
-        const { currentProduct, productCategory } = this.state;
+    renderProductDetails = () => {
+       const { currentProduct, productCategory } = this.state;
+
+       return (
+           <div className='details'>
+               <div className='details__leftpart'>
+                   <div className='details__leftpart-img'>
+                       <img src={currentProduct.image} alt='img'/>
+                   </div>
+                   <div className='details__leftpart-rate'>
+                       <StarRatingComponent
+                           className='details__leftpart-rate__stars'
+                           name='rate'
+                           starCount={5}
+                           value={currentProduct.rating}
+                           editing={false}
+                           onStarClick={this.onStarClick.bind(this)}
+                       />
+                   </div>
+                   <div className='details__leftpart-info'>
+                       <p className='details__leftpart-info__price'>
+                           $ {currentProduct.cost}
+                       </p>
+                       <p className='details__leftpart-info__gender'>
+                           Gender: {currentProduct.gender}
+                       </p>
+                       <p className='details__leftpart-info__category'>
+                           Category: {productCategory}
+                       </p>
+                   </div>
+               </div>
+               <div className='details__rightpart'>
+                   <div className='details__rightpart-desc'>
+                       <h3>{currentProduct.name}</h3>
+                       <p>{currentProduct.description}</p>
+                   </div>
+               </div>
+           </div>
+       );
+    };
+
+    editToggle() {
+        this.setState({
+            editing: !this.state.editing
+        });
+    }
+
+    renderEditTemplate() {
+        const { currentProduct, productCategoryId } = this.state;
+
         return (
-            <Layout history={this.props.history}>
-                <div className='btn_back'>
-                    <button onClick={this.goBack}>Back</button>
-                </div>
+            <div>
                 <div className='details'>
                     <div className='details__leftpart'>
                         <div className='details__leftpart-img'>
@@ -101,26 +149,82 @@ class ConnectedProductDetailsPage extends Component {
                         </div>
                         <div className='details__leftpart-info'>
                             <p className='details__leftpart-info__price'>
-                                $ {currentProduct.cost}
+                                Price: <input id='editPrice' type="number" defaultValue={currentProduct.cost}/>
                             </p>
-                            <p className='details__leftpart-info__gender'>
-                                Gender: {currentProduct.gender}
-                            </p>
-                            <p className='details__leftpart-info__category'>
-                                Category: {productCategory}
-                            </p>
+                            <select id='editGender' defaultValue={currentProduct.gender}>
+                                <option value="Man">Man</option>
+                                <option value="Woman">Woman</option>
+                                <option value="Unisex">Unisex</option>
+                            </select>
+                            <select id='editCategory' defaultValue={productCategoryId}>
+                                <option value="0">Active wear</option>
+                                <option value="1">Jeans</option>
+                                <option value="2">Coats</option>
+                                <option value="3">Sweaters</option>
+                                <option value="4">Wear to work</option>
+                            </select>
                         </div>
                     </div>
                     <div className='details__rightpart'>
                         <div className='details__rightpart-desc'>
-                            <h3>{currentProduct.name}</h3>
-                            <p>{currentProduct.description}</p>
+                            <div className='editName'>
+                                <p>Name: </p>
+                                <input id='editName' type="text" defaultValue={currentProduct.name}/>
+                            </div>
+                            <div>
+                                <p>Description:</p>
+                                <textarea id='editDesc' rows="20" cols="70" defaultValue={currentProduct.description}/>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div className="btn_buy">
-                    <button>Buy</button>
+                <div className='bottom-edit-btns'>
+                    <button className='bottom-edit-btns__save' onClick={this.setEditValue}>Save</button>
+                    <button className='bottom-edit-btns__cancel' onClick={this.editToggle}>Cancel</button>
                 </div>
+            </div>
+        );
+    }
+
+    setEditValue() {
+        const { currentProduct, editing } = this.state;
+        let newPrice = document.getElementById('editPrice').value,
+            newGender = document.getElementById('editGender').value,
+            newCategory = document.getElementById('editCategory'),
+            newName = document.getElementById('editName').value,
+            newDesc = document.getElementById('editDesc').value;
+
+        let editedProduct = currentProduct;
+        editedProduct.name = newName;
+        editedProduct.description = newDesc;
+        editedProduct.gender = newGender;
+        editedProduct.cost = newPrice;
+        editedProduct.categoryId = newCategory.options[newCategory.selectedIndex].value;
+
+        this.setState({
+            currentProduct: editedProduct,
+            editing: !editing
+        });
+
+        console.log(newCategory.options[newCategory.selectedIndex].value)
+    };
+
+    render() {
+        const { editing } = this.state;
+        console.log(this.state.currentProduct);
+        return (
+            <Layout history={this.props.history}>
+                <div className='top-btns'>
+                    <button className="btn_back" onClick={this.goBack}>Back</button>
+                    { !editing && <button onClick={this.editToggle} className="btn_edit">Edit</button>  }
+                </div>
+                {!editing && this.renderProductDetails()}
+                {!editing &&
+                    <div className="btn_buy">
+                        <button>Buy</button>
+                    </div>
+                }
+                {editing && this.renderEditTemplate()}
             </Layout>
         );
     }

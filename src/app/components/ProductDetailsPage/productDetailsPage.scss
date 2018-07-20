@@ -1,6 +1,15 @@
 @import '../../mixin.scss';
 
-.btn_back, .btn_buy {
+.top-btns {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn_back, .btn_edit {
+  @include btn(orange, #fff);
+}
+
+.btn_buy {
   button {
     @include btn(#1abc9c, #fff);
   }
@@ -56,6 +65,7 @@
     &-info {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       width: 90%;
 
       &__price {
@@ -63,6 +73,53 @@
         color: darkred;
         font-weight: bold;
       }
+
+      select {
+        width: 120px;
+        height: 30px;
+
+        &:focus {
+          outline: none;
+        }
+      }
     }
+  }
+
+  &__rightpart {
+    &-desc {
+      textarea {
+        padding: 10px;
+        border-radius: 5px;
+
+        &:focus {
+          outline: none;
+        }
+      }
+      .editName {
+        width: 50%;
+
+        input {
+          width: 100%;
+          margin-left: 0;
+        }
+      }
+    }
+  }
+}
+
+.bottom-edit-btns {
+  display: flex;
+  justify-content: center;
+
+  &__save {
+    @include btn(#1abc9c, #fff);
+  }
+
+  &__cancel {
+    @include btn(orange, #fff);
+  }
+
+  button {
+    margin: 5px;
   }
 }
