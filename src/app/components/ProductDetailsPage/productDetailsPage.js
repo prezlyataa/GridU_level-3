@@ -45,7 +45,7 @@ class ConnectedProductDetailsPage extends Component {
                 let ID = this.props.history.location.pathname.match(/[^/]+$/)[0];
 
                 let product = products.filter(product => {
-                    return product.id === parseInt(ID, 10);
+                    return parseInt(product.id, 10) === parseInt(ID, 10);
                 });
 
                 this.setState({
@@ -188,6 +188,7 @@ class ConnectedProductDetailsPage extends Component {
 
     setEditValue() {
         const { currentProduct, editing } = this.state;
+        const { httpService } = this.props;
         let newPrice = document.getElementById('editPrice').value,
             newGender = document.getElementById('editGender').value,
             newCategory = document.getElementById('editCategory'),
@@ -198,20 +199,33 @@ class ConnectedProductDetailsPage extends Component {
         editedProduct.name = newName;
         editedProduct.description = newDesc;
         editedProduct.gender = newGender;
-        editedProduct.cost = newPrice;
-        editedProduct.categoryId = newCategory.options[newCategory.selectedIndex].value;
+        editedProduct.cost = parseInt(newPrice, 10);
+        editedProduct.categoryId = parseInt(newCategory.options[newCategory.selectedIndex].value, 10);
+
+        httpService.get(URLS.categories)
+            .then(categories => {
+                let productCategory = categories.filter(category => {
+                    return category.id ===  parseInt(newCategory.options[newCategory.selectedIndex].value, 10);
+                });
+
+                this.setState({
+                    productCategory: productCategory[0].name,
+                    productCategoryId: productCategory[0].id
+                });
+            });
 
         this.setState({
             currentProduct: editedProduct,
             editing: !editing
         });
 
-        console.log(newCategory.options[newCategory.selectedIndex].value)
+        httpService.put(`${URLS.products}/${currentProduct.id}`, currentProduct);
+        // console.log(currentProduct);
     };
 
     render() {
         const { editing } = this.state;
-        console.log(this.state.currentProduct);
+        // console.log(this.state.currentProduct);
         return (
             <Layout history={this.props.history}>
                 <div className='top-btns'>
