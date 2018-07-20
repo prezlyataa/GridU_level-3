@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import classnames from 'classnames';
 import { Product } from '../Product';
 import withWire from '../../hocs/withWire';
 import { getProducts, loadMore } from '../../actions';
@@ -32,7 +33,10 @@ class ConnectedProductsList extends Component {
             gender: null,
             rate: null,
             from: null,
-            to: null
+            to: null,
+            invalidGender: false,
+            invalidRate: false,
+            openFilter: false
         };
         autoBind(this);
     }
@@ -41,6 +45,12 @@ class ConnectedProductsList extends Component {
         this.setState({
             visible: this.state.visible + 6
         });
+    }
+
+    filterToggle() {
+        this.setState({
+            openFilter: !this.state.openFilter
+        })
     }
 
     availableCheck() {
@@ -100,58 +110,57 @@ class ConnectedProductsList extends Component {
         });
     }
 
-
     filterProducts() {
         const { available, gender, rate, from, to } = this.state;
         const { products } = this.props;
         let filteredProducts;
 
-        // filteredProducts = products.filter(product => {
-        //     return (
-        //         (available === true) ? product.count > 0 &&
-        //             (gender !== null ) ? product.gender === gender &&
-        //                 (rate !== null ) ? product.rating === parseInt(rate, 10)
-        //     );
-        // });
-        //
-        // if (available) {
-        //     filteredProducts = products.filter(product => {
-        //         return product.count > 0;
-        //     });
-        // }
-        // if (gender !== null) {
-        //     filteredProducts = products.filter(product => {
-        //         return product.gender === gender;
-        //     });
-        // }
-        // if (rate !== null) {
-        //     filteredProducts = products.filter(product => {
-        //         return product.rating === parseInt(rate, 10);
-        //     });
-        // }
+        let filterItems = (items, available, gender, rate, from, to) => {
+            if (available !== true) {
+                available = 0;
+            }
+            from = from || 0;
+            to = to || 100000;
+            let filteredItem;
 
-        // if (from !== null) {
-        //     filteredProducts = products.filter(product => {
-        //         return product.cost > parseInt(from, 10);
-        //     });
-        // }
-        //
-        // if (to !== null) {
-        //     filteredProducts = products.filter(product => {
-        //         return product.cost < parseInt(to, 10);
-        //     });
-        // }
-        //
-        // if (from !== null && to !== null) {
-        //     filteredProducts = products.filter(product => {
-        //         return (product.cost > parseInt(from, 10) && product.cost < parseInt(to, 10));
-        //     });
-        // }
+            filteredItem = items.filter(item => {
+                return (
+                    item.count >= available &&
+                    item.gender === gender &&
+                    item.rating === parseInt(rate, 10) &&
+                    item.cost > parseInt(from, 10) &&
+                    item.cost < parseInt(to, 10)
+                );
+            });
 
-        this.setState({
-            filteredProducts: filteredProducts,
-            clearFilter: false
-        });
+            return filteredItem;
+        };
+
+        if (gender === null && rate !== null) {
+            this.setState({
+                invalidGender: true
+            })
+        } else if (rate === null && gender !== null) {
+            this.setState({
+                invalidRate: true
+            })
+        } else {
+            this.setState({
+                invalidRate: true,
+                invalidGender: true
+            })
+        }
+
+        if(gender !== null && rate !== null) {
+            filteredProducts = filterItems(products, available, gender, rate, from, to);
+
+            this.setState({
+                filteredProducts: filteredProducts,
+                clearFilter: false,
+                invalidGender: false,
+                invalidRate: false
+            });
+        }
     }
 
     resetFilter() {
@@ -162,7 +171,9 @@ class ConnectedProductsList extends Component {
             gender: null,
             rate: null,
             from: null,
-            to: null
+            to: null,
+            invalidGender: false,
+            invalidRate: false
         });
 
         this.unCheck();
@@ -200,9 +211,25 @@ class ConnectedProductsList extends Component {
 
     render() {
         console.table(this.state);
+        const genderLabel = classnames({
+            'danger-gender': this.state.invalidGender
+        });
+
+        const rateLabel = classnames({
+            'danger-rate': this.state.invalidRate
+        });
+
+        const filter = classnames({
+            'filter': true,
+            'open': this.state.openFilter
+        });
+
         return(
             <div>
-                <div className='filter'>
+                <div>
+                    <button className='filter-btn' onClick={this.filterToggle}>Filter</button>
+                </div>
+                <div className={filter}>
                     <div className='filter__top'>
                         <div className='filter__top-available'>
                             <label>
@@ -215,7 +242,7 @@ class ConnectedProductsList extends Component {
                             </label>
                         </div>
                         <div className='filter__top-gender'>
-                            <label><input
+                            <label className={genderLabel}><input
                                 type="radio"
                                 name='gender-checkbox'
                                 onChange={this.setGender}
@@ -224,7 +251,7 @@ class ConnectedProductsList extends Component {
                                 />
                                 Male
                             </label>
-                            <label><input
+                            <label className={genderLabel}><input
                                 type="radio"
                                 name='gender-checkbox'
                                 onChange={this.setGender}
@@ -233,7 +260,7 @@ class ConnectedProductsList extends Component {
                                 />
                                 Female
                             </label>
-                            <label><input
+                            <label className={genderLabel}><input
                                 type="radio"
                                 name='gender-checkbox'
                                 onChange={this.setGender}
@@ -244,7 +271,7 @@ class ConnectedProductsList extends Component {
                             </label>
                         </div>
                         <div className='filter__top-rate'>
-                            Rating: <input
+                            <label className={rateLabel}>Rating: </label><input
                             type='number'
                             placeholder='input rate from 1-5'
                             id='rate'

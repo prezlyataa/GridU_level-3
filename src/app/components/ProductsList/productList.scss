@@ -10,10 +10,24 @@ input {
   }
 }
 
+.danger-gender {
+  color: red;
+}
+
+.danger-rate {
+  color: red;
+}
+
+.filter-btn {
+  @include btn(orange, #fff);
+  margin-bottom: 15px;
+}
+
 .filter {
   padding: 30px 20px;
-  background-color: aliceblue;
-  margin-bottom: 20px;
+  background-color: #f3f4f5;
+  margin: 0 0 20px;
+  display: none;
 
   &__top {
     display: flex;
@@ -36,6 +50,10 @@ input {
       }
     }
   }
+}
+
+.open {
+  display: block;
 }
 
 .products_list {
