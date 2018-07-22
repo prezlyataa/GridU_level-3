@@ -47,12 +47,12 @@
   ],
   "products": [
     {
-      "id": 0,
-      "categoryId": 0,
+      "id": "0",
+      "categoryId": 3,
       "image": "https://images.pexels.com/photos/179909/pexels-photo-179909.jpeg?h=350&auto=compress&cs=tinysrgb",
       "name": "Active wear Lorem Ipsum 1",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed libero enim, sollicitudin a elit vel, dapibus pellentesque nunc. Phasellus ac rutrum massa. Vivamus non nulla lobortis augue ullamcorper congue.",
-      "cost": 47.78,
+      "cost": 2000,
       "rating": 4,
       "gender": "Man",
       "count": 50,
@@ -311,12 +311,12 @@
       "soldCount": 10
     },
     {
-      "id": 42,
+      "id": "42",
       "categoryId": 4,
       "image": "https://images.pexels.com/photos/93488/pexels-photo-93488.jpeg?h=350&auto=compress&cs=tinysrgb",
       "name": "Wear to work Lorem Ipsum 3",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      "cost": 866.99,
+      "cost": 777.99,
       "rating": 0,
       "gender": "Unisex",
       "count": 10,

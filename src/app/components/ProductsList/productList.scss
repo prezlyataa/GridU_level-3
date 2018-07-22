@@ -52,6 +52,15 @@ input {
   }
 }
 
+.search-field {
+  input {
+    width: 30%;
+    height: 30px;
+    margin-left: 0;
+    margin-bottom: 20px;
+  }
+}
+
 .open {
   display: block;
 }

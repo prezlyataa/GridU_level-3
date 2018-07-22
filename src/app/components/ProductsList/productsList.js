@@ -36,7 +36,8 @@ class ConnectedProductsList extends Component {
             to: null,
             invalidGender: false,
             invalidRate: false,
-            openFilter: false
+            openFilter: false,
+            query: ''
         };
         autoBind(this);
     }
@@ -183,6 +184,8 @@ class ConnectedProductsList extends Component {
         const { products } = this.props;
         const { filteredProducts, clearFilter, visible } = this.state;
 
+        this.getFiltered(products);
+
         if (filteredProducts.length > 0 && !clearFilter) {
             return filteredProducts.slice(0, visible).map((product, id) => (
                 <Product key={id} product={product}/>
@@ -209,8 +212,22 @@ class ConnectedProductsList extends Component {
         }
     }
 
+    getFiltered(products) {
+        const { query } = this.state;
+
+        return products
+            .filter(({ name }) => name.toLowerCase().search(query) !== -1);
+    }
+
+    filterList(e){
+        this.setState({
+            query: e.target.value.toLowerCase()
+        });
+    }
+
     render() {
-        console.table(this.state);
+        console.log(this.state);
+
         const genderLabel = classnames({
             'danger-gender': this.state.invalidGender
         });
@@ -300,6 +317,9 @@ class ConnectedProductsList extends Component {
                             <button className='filter__bottom-btns__apply' onClick={ this.filterProducts }>Apply</button>
                         </div>
                     </div>
+                </div>
+                <div className='search-field'>
+                    <input type='text' placeholder='Search product' onChange={this.filterList} value={this.state.query}/>
                 </div>
                 <div className='products_list'>
                     { this.renderList() }

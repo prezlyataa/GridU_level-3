@@ -199,7 +199,7 @@ class ConnectedProductDetailsPage extends Component {
         editedProduct.name = newName;
         editedProduct.description = newDesc;
         editedProduct.gender = newGender;
-        editedProduct.cost = parseInt(newPrice, 10);
+        editedProduct.cost = parseFloat(newPrice, 10);
         editedProduct.categoryId = parseInt(newCategory.options[newCategory.selectedIndex].value, 10);
 
         httpService.get(URLS.categories)
@@ -220,7 +220,6 @@ class ConnectedProductDetailsPage extends Component {
         });
 
         httpService.put(`${URLS.products}/${currentProduct.id}`, currentProduct);
-        // console.log(currentProduct);
     };
 
     render() {
