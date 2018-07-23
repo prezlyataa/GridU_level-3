@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import withWire from '../../hocs/withWire';
 import { getProducts } from '../../actions';
 import { Link } from 'react-router-dom';
+import { URLS } from '../../consts/apiConsts';
 import './Product.css';
 
 const autoBind = require('auto-bind');
@@ -25,6 +26,13 @@ class ConnectedProduct extends Component {
         autoBind(this);
     }
 
+    deleteProduct() {
+        const { httpService, product } = this.props;
+
+        httpService
+            .delete(`${URLS.products}/${product.id}`)
+    }
+
     render() {
         const { product } = this.props;
         return(
@@ -37,7 +45,7 @@ class ConnectedProduct extends Component {
                 <div className='product__details'>
                     <h3 className='product__details-price'>$ {product.cost}</h3>
                     <div className='product__details-btns'>
-                        <button className='product__details-btns__delete'>Delete</button>
+                        <button className='product__details-btns__delete' onClick={this.deleteProduct}>Delete</button>
                         <button className='product__details-btns__details'>
                             <Link to={{ pathname: `productDetailsPage/${product.id}`, state: { product } }}>Details</Link>
                         </button>

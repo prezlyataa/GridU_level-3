@@ -249,6 +249,8 @@ class ConnectedProductsList extends Component {
             'open': this.state.openFilter
         });
 
+        console.log(this.props.products)
+
         return(
             <div>
                 <div>
