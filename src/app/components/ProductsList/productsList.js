@@ -184,8 +184,6 @@ class ConnectedProductsList extends Component {
         const { products } = this.props;
         const { filteredProducts, clearFilter, visible } = this.state;
 
-        this.getFiltered(products);
-
         if (filteredProducts.length > 0 && !clearFilter) {
             return filteredProducts.slice(0, visible).map((product, id) => (
                 <Product key={id} product={product}/>
@@ -215,14 +213,24 @@ class ConnectedProductsList extends Component {
     getFiltered(products) {
         const { query } = this.state;
 
-        return products
-            .filter(({ name }) => name.toLowerCase().search(query) !== -1);
+        // return products
+        //     .filter(({ name }) => name.toLowerCase().search(query) !== -1);
+
+        let searchProducts = products.filter((product) => {
+            return product.name.toLowerCase().includes(query);
+        });
+
+        this.setState({
+            filteredProducts: searchProducts
+        })
+
     }
 
     filterList(e){
         this.setState({
             query: e.target.value.toLowerCase()
         });
+        this.getFiltered(this.props.products);
     }
 
     render() {

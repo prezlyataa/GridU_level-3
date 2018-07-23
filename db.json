@@ -48,7 +48,7 @@
   "products": [
     {
       "id": "0",
-      "categoryId": 3,
+      "categoryId": 4,
       "image": "https://images.pexels.com/photos/179909/pexels-photo-179909.jpeg?h=350&auto=compress&cs=tinysrgb",
       "name": "Active wear Lorem Ipsum 1",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed libero enim, sollicitudin a elit vel, dapibus pellentesque nunc. Phasellus ac rutrum massa. Vivamus non nulla lobortis augue ullamcorper congue.",
