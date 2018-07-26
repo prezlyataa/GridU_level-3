@@ -3,7 +3,9 @@ import {
     DELETE_PERSON,
     SORT_BY_AGE,
     GET_PRODUCTS,
-    LOAD_MORE
+    LOAD_MORE,
+    SET_LOGIN,
+    SET_ROLE
 } from '../consts/action-types';
 
 export const addPerson = person => ({
@@ -26,7 +28,17 @@ export const getProducts = products => ({
     payload: products
 });
 
-export const loadMore = (visible) => ({
+export const loadMore = visible => ({
     type: LOAD_MORE,
     payload: visible
+});
+
+export const setLogin = login => ({
+    type: SET_LOGIN,
+    payload: login
+});
+
+export const setRole = role => ({
+    type: SET_ROLE,
+    payload: role
 });

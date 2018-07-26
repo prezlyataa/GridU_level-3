@@ -3,11 +3,14 @@ import { connect } from 'react-redux';
 import withWire from '../../hocs/withWire';
 import classnames from 'classnames';
 import './loginPage.css';
+import { setLogin } from '../../actions';
 
 const autoBind = require('auto-bind');
 
 const mapDispatchToProps = dispatch => {
-    return {};
+    return {
+        setLogin: login => dispatch(setLogin(login))
+    };
 };
 
 const mapStateToProps = state => {
@@ -51,6 +54,7 @@ class ConnectedLoginPage extends Component {
 
         authService.login(login, password)
             .then(() => {
+                localStorage.setItem('login', login);
                 if(authService.getToken()) {
                     this.props.history.replace('/productsPage');
                 } else {

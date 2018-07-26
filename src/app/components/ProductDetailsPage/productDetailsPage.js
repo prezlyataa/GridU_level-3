@@ -17,7 +17,8 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
     return {
-        products: state.products
+        products: state.products,
+        role: state.role
     };
 };
 
@@ -229,7 +230,7 @@ class ConnectedProductDetailsPage extends Component {
             <Layout history={this.props.history}>
                 <div className='top-btns'>
                     <button className="btn_back" onClick={this.goBack}>Back</button>
-                    { !editing && <button onClick={this.editToggle} className="btn_edit">Edit</button>  }
+                    { !editing && this.props.role == true && <button onClick={this.editToggle} className="btn_edit">Edit</button>  }
                 </div>
                 {!editing && this.renderProductDetails()}
                 {!editing &&

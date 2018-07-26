@@ -18,7 +18,9 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => {
     return {
         products: state.products,
-        visibleProducts: state.visibleProducts
+        visibleProducts: state.visibleProducts,
+        login: state.login,
+        role: state.role
     };
 };
 
@@ -234,8 +236,6 @@ class ConnectedProductsList extends Component {
     }
 
     render() {
-        console.log(this.state);
-
         const genderLabel = classnames({
             'danger-gender': this.state.invalidGender
         });
@@ -249,7 +249,7 @@ class ConnectedProductsList extends Component {
             'open': this.state.openFilter
         });
 
-        console.log(this.props.products)
+        console.log(this.props.role);
 
         return(
             <div>

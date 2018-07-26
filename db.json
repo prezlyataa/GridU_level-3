@@ -47,6 +47,30 @@
   ],
   "products": [
     {
+      "id": 0,
+      "categoryId": 0,
+      "image": "https://images.pexels.com/photos/179909/pexels-photo-179909.jpeg?h=350&auto=compress&cs=tinysrgb",
+      "name": "Active wear Lorem Ipsum 1",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed libero enim, sollicitudin a elit vel, dapibus pellentesque nunc. Phasellus ac rutrum massa. Vivamus non nulla lobortis augue ullamcorper congue.",
+      "cost": 47.78,
+      "rating": 4,
+      "gender": "Man",
+      "count": 50,
+      "soldCount": 50
+    },
+    {
+      "id": 1,
+      "categoryId": 0,
+      "image": "https://images.pexels.com/photos/285171/pexels-photo-285171.jpeg?h=350&auto=compress&cs=tinysrgb",
+      "name": "Active wear Lorem Ipsum 2",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed libero enim, sollicitudin a elit vel, dapibus pellentesque nunc. Phasellus ac rutrum massa. Vivamus non nulla lobortis augue ullamcorper congue.",
+      "cost": 53.99,
+      "rating": 3,
+      "gender": "Man",
+      "count": 10,
+      "soldCount": 0
+    },
+    {
       "id": 2,
       "categoryId": 0,
       "image": "https://images.pexels.com/photos/179909/pexels-photo-179909.jpeg?h=350&auto=compress&cs=tinysrgb",
@@ -56,6 +80,18 @@
       "rating": 5,
       "gender": "Unisex",
       "count": 20,
+      "soldCount": 0
+    },
+    {
+      "id": 3,
+      "categoryId": 0,
+      "image": "https://images.pexels.com/photos/291762/pexels-photo-291762.jpeg?h=350&auto=compress&cs=tinysrgb",
+      "name": "Active wear Lorem Ipsum 4",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      "cost": 37.99,
+      "rating": 0,
+      "gender": "Woman",
+      "count": 5,
       "soldCount": 0
     },
     {
@@ -114,6 +150,18 @@
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
       "cost": 277.99,
       "rating": 3,
+      "gender": "Woman",
+      "count": 10,
+      "soldCount": 0
+    },
+    {
+      "id": 14,
+      "categoryId": 1,
+      "image": "https://images.pexels.com/photos/157888/fashion-glasses-go-pro-female-157888.jpeg?h=350&auto=compress&cs=tinysrgb",
+      "name": "Jeans Lorem Ipsum 5",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      "cost": 752.99,
+      "rating": 5,
       "gender": "Woman",
       "count": 10,
       "soldCount": 0
@@ -263,12 +311,12 @@
       "soldCount": 10
     },
     {
-      "id": "42",
+      "id": 42,
       "categoryId": 4,
       "image": "https://images.pexels.com/photos/93488/pexels-photo-93488.jpeg?h=350&auto=compress&cs=tinysrgb",
       "name": "Wear to work Lorem Ipsum 3",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      "cost": 777.99,
+      "cost": 866.99,
       "rating": 0,
       "gender": "Unisex",
       "count": 10,
