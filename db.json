@@ -83,24 +83,12 @@
       "soldCount": 0
     },
     {
-      "id": 3,
-      "categoryId": 0,
-      "image": "https://images.pexels.com/photos/291762/pexels-photo-291762.jpeg?h=350&auto=compress&cs=tinysrgb",
-      "name": "Active wear Lorem Ipsum 4",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      "cost": 37.99,
-      "rating": 0,
-      "gender": "Woman",
-      "count": 5,
-      "soldCount": 0
-    },
-    {
       "id": 4,
       "categoryId": 0,
       "image": "https://images.pexels.com/photos/157888/fashion-glasses-go-pro-female-157888.jpeg?h=350&auto=compress&cs=tinysrgb",
       "name": "Active wear Lorem Ipsum 5",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      "cost": 24.99,
+      "cost": 120,
       "rating": 2,
       "gender": "Woman",
       "count": 0,

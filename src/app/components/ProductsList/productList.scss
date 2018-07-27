@@ -52,12 +52,27 @@ input {
   }
 }
 
-.search-field {
-  input {
-    width: 30%;
-    height: 30px;
-    margin-left: 0;
-    margin-bottom: 20px;
+.control-block {
+  display: flex;
+  justify-content: space-between;
+  align-self: center;
+
+  .search-field {
+    width: 50%;
+    input {
+      width: 30%;
+      height: 30px;
+      margin-left: 0;
+      margin-bottom: 20px;
+    }
+  }
+
+  .add-product {
+    width: 50%;
+    text-align: right;
+    button {
+      @include btn(#1abc9c, #fff);
+    }
   }
 }
 

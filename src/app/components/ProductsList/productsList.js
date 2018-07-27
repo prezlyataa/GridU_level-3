@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 import { Product } from '../Product';
+import { ProductForm } from '../ProductForm';
 import withWire from '../../hocs/withWire';
 import { getProducts, loadMore, searchProducts } from '../../actions';
 import { URLS } from "../../consts/apiConsts";
+import Modal from 'react-responsive-modal';
 import './productList.css';
 
 const autoBind = require('auto-bind');
@@ -41,7 +43,8 @@ class ConnectedProductsList extends Component {
             invalidGender: false,
             invalidRate: false,
             openFilter: false,
-            query: ''
+            query: '',
+            open: false
         };
         autoBind(this);
     }
@@ -231,6 +234,18 @@ class ConnectedProductsList extends Component {
         searchProducts(e.target.value);
     }
 
+    onOpenModal() {
+        this.setState({
+            open: true
+        });
+    };
+
+    onCloseModal() {
+        this.setState({
+            open: false
+        });
+    };
+
     render() {
         const genderLabel = classnames({
             'danger-gender': this.state.invalidGender
@@ -244,6 +259,11 @@ class ConnectedProductsList extends Component {
             'filter': true,
             'open': this.state.openFilter
         });
+
+        const { open } = this.state;
+        const { role } = this.props;
+
+        console.log(this.props.products);
 
         return(
             <div>
@@ -322,9 +342,19 @@ class ConnectedProductsList extends Component {
                         </div>
                     </div>
                 </div>
-                <div className='search-field'>
-                    <input type='text' placeholder='Search product' onChange={this.filterList} value={this.state.query}/>
+                <div className='control-block'>
+                    <div className='search-field'>
+                        <input type='text' placeholder='Search product' onChange={this.filterList} value={this.state.query}/>
+                    </div>
+                    {role == true &&
+                        <div className='add-product'>
+                            <button onClick={this.onOpenModal}>Add product</button>
+                        </div>
+                    }
                 </div>
+                <Modal open={open} onClose={this.onCloseModal} center>
+                    <ProductForm onClose={this.onCloseModal}/>
+                </Modal>
                 <div className='products_list'>
                     { this.renderList() }
                 </div>
