@@ -5,7 +5,8 @@ import {
     GET_PRODUCTS,
     LOAD_MORE,
     SET_LOGIN,
-    SET_ROLE
+    SET_ROLE,
+    SEARCH_PRODUCTS
 } from '../consts/action-types';
 
 export const addPerson = person => ({
@@ -41,4 +42,9 @@ export const setLogin = login => ({
 export const setRole = role => ({
     type: SET_ROLE,
     payload: role
+});
+
+export const searchProducts = query => ({
+    type: SEARCH_PRODUCTS,
+    payload: query
 });

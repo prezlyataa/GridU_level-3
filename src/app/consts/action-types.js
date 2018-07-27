@@ -5,3 +5,4 @@ export const GET_PRODUCTS = 'GET_PRODUCTS';
 export const LOAD_MORE = 'LOAD_MORE';
 export const SET_LOGIN = 'SET_LOGIN';
 export const SET_ROLE = 'SET_ROLE';
+export const SEARCH_PRODUCTS = 'SEARCH_PRODUCTS';

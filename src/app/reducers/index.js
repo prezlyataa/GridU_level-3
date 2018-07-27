@@ -5,7 +5,8 @@ import {
     GET_PRODUCTS,
     LOAD_MORE,
     SET_LOGIN,
-    SET_ROLE
+    SET_ROLE,
+    SEARCH_PRODUCTS
 } from '../consts/action-types';
 
 const initialState = {
@@ -37,6 +38,8 @@ const rootReducer = (state = initialState, action) => {
             return { ...state, login: action.payload };
         case SET_ROLE:
             return { ...state, role: action.payload };
+        case SEARCH_PRODUCTS:
+            return {...state, products: state.products.filter(({ name }) => name.toLowerCase().search(action.payload) !== -1)};
         default:
             return state;
     }

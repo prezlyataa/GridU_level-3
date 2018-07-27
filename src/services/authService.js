@@ -19,7 +19,6 @@ class AuthService {
                 }
             })
             .then(data => {
-                console.log(data);
                 return this.fetch(`${this.domain}`, {
                     method: 'POST',
                     body: JSON.stringify({

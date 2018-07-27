@@ -42,7 +42,7 @@ class ConnectedProduct extends Component {
     }
 
     render() {
-        const { product } = this.props;
+        const { product, role } = this.props;
         return(
             <div className='product'>
                 <h3 className='product__name'>{product.name}</h3>
@@ -53,7 +53,7 @@ class ConnectedProduct extends Component {
                 <div className='product__details'>
                     <h3 className='product__details-price'>$ {product.cost}</h3>
                     <div className='product__details-btns'>
-                        { this.props.role == true && <button className='product__details-btns__delete' onClick={this.deleteProduct}>Delete</button> }
+                        { role == true && <button className='product__details-btns__delete' onClick={this.deleteProduct}>Delete</button> }
                         <button className='product__details-btns__details'>
                             <Link to={{ pathname: `productDetailsPage/${product.id}`, state: { product } }}>Details</Link>
                         </button>

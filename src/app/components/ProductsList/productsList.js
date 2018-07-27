@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import classnames from 'classnames';
 import { Product } from '../Product';
 import withWire from '../../hocs/withWire';
-import { getProducts, loadMore } from '../../actions';
+import { getProducts, loadMore, searchProducts } from '../../actions';
+import { URLS } from "../../consts/apiConsts";
 import './productList.css';
 
 const autoBind = require('auto-bind');
@@ -11,7 +12,8 @@ const autoBind = require('auto-bind');
 const mapDispatchToProps = dispatch => {
     return {
         getProducts: products => dispatch(getProducts(products)),
-        loadMore: (num) => dispatch(loadMore(num))
+        loadMore: num => dispatch(loadMore(num)),
+        searchProducts: query => dispatch(searchProducts(query))
     };
 };
 
@@ -195,6 +197,9 @@ class ConnectedProductsList extends Component {
                 <Product key={id} product={product}/>
             ));
         }
+        // return products.map((product, id) => (
+        //     <Product key={id} product={product}/>
+        // ));
     }
 
     renderLoadMore() {
@@ -212,27 +217,18 @@ class ConnectedProductsList extends Component {
         }
     }
 
-    getFiltered(products) {
-        const { query } = this.state;
-
-        // return products
-        //     .filter(({ name }) => name.toLowerCase().search(query) !== -1);
-
-        let searchProducts = products.filter((product) => {
-            return product.name.toLowerCase().includes(query);
-        });
-
-        this.setState({
-            filteredProducts: searchProducts
-        })
-
-    }
-
     filterList(e){
+        const { httpService, getProducts, searchProducts } = this.props;
         this.setState({
-            query: e.target.value.toLowerCase()
+            query: e.target.value
         });
-        this.getFiltered(this.props.products);
+        if(e.target.value.length < 1) {
+            httpService.get(URLS.products)
+                .then(products => {
+                    getProducts(products);
+                })
+        }
+        searchProducts(e.target.value);
     }
 
     render() {
@@ -248,8 +244,6 @@ class ConnectedProductsList extends Component {
             'filter': true,
             'open': this.state.openFilter
         });
-
-        console.log(this.props.role);
 
         return(
             <div>

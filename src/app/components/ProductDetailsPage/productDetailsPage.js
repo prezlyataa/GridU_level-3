@@ -225,12 +225,13 @@ class ConnectedProductDetailsPage extends Component {
 
     render() {
         const { editing } = this.state;
+        const { role } = this.props;
         // console.log(this.state.currentProduct);
         return (
             <Layout history={this.props.history}>
                 <div className='top-btns'>
                     <button className="btn_back" onClick={this.goBack}>Back</button>
-                    { !editing && this.props.role == true && <button onClick={this.editToggle} className="btn_edit">Edit</button>  }
+                    { !editing && role == true && <button onClick={this.editToggle} className="btn_edit">Edit</button>  }
                 </div>
                 {!editing && this.renderProductDetails()}
                 {!editing &&
