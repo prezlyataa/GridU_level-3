@@ -226,7 +226,6 @@ class ConnectedProductDetailsPage extends Component {
     render() {
         const { editing } = this.state;
         const { role } = this.props;
-        // console.log(this.state.currentProduct);
         return (
             <Layout history={this.props.history}>
                 <div className='top-btns'>

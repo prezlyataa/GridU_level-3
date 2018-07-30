@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import classnames from 'classnames';
 import { getProducts } from '../../actions';
 import { URLS } from "../../consts/apiConsts";
+import './productForm.css';
 
 const mapDispatchToProps = dispatch => {
     return {
@@ -21,15 +22,15 @@ class ConnectedProductForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            categoryId: '',
             cost: '',
             count: '',
             description: '',
-            gender: '',
             image: "https://images.pexels.com/photos/179909/pexels-photo-179909.jpeg?h=350&auto=compress&cs=tinysrgb",
             name: '',
-            rating: '',
             soldCount: '',
+            gender: 'Man',
+            categoryId: 0,
+            rating: 0,
             newProduct: {}
         }
     }
@@ -70,8 +71,26 @@ class ConnectedProductForm extends Component {
         })
     };
 
+    handleChangeGender = event => {
+        this.setState({
+            gender: event.target.value
+        })
+    };
+
+    handleChangeCategory = event => {
+        this.setState({
+            categoryId: parseInt(event.target.value, 10)
+        })
+    };
+
+    handleChangeRating = event => {
+        this.setState({
+            rating: parseInt(event.target.value, 10)
+        })
+    };
+
     createNewProduct = (event) => {
-        const { newProduct, name, desc,cost, rating, soldCount, count, image } = this.state;
+        const { newProduct, name, desc, cost, soldCount, count, image, gender, categoryId, rating } = this.state;
         const { httpService, getProducts } = this.props;
 
         event.preventDefault();
@@ -83,6 +102,9 @@ class ConnectedProductForm extends Component {
         newProduct.soldCount = parseInt(soldCount, 10);
         newProduct.count = parseInt(count, 10);
         newProduct.image = image;
+        newProduct.gender = gender;
+        newProduct.categoryId = categoryId;
+        newProduct.rating = rating;
 
         httpService
             .post(URLS.products, newProduct)
@@ -98,16 +120,59 @@ class ConnectedProductForm extends Component {
     };
 
     render() {
-        const { newProduct, name, desc, cost, rating, soldCount, count } = this.state;
+        const { name, desc, cost, rating, soldCount, count } = this.state;
         return (
           <div className='product-form'>
-              <input id='name' type="text" placeholder='Name' value={name} onChange={this.handleChangeName}/>
-              <textarea id="desc" placeholder='Description' value={desc} onChange={this.handleChangeDesc} />
-              <input id='cost' type="number" placeholder='Price' value={cost} onChange={this.handleChangeCost}/>
-              <input id='rating' type="number" placeholder='Rating' value={rating} onChange={this.handleChangeRating}/>
-              <input id='soldCount' type="number" placeholder='Sold count' value={soldCount} onChange={this.handleChangeSoldCount}/>
-              <input id='count' type="number" placeholder='Count' value={count} onChange={this.handleChangeCount}/>
-              <button onClick={this.createNewProduct}>Create</button>
+              <div className='product-form__title'>
+                  <h3>Fill the fields</h3>
+              </div>
+              <div className='product-form__name'>
+                  <input id='name' type="text" placeholder='Name' value={name} onChange={this.handleChangeName}/>
+              </div>
+              <div className='product-form__desc'>
+                  <textarea id="desc" placeholder='Description' value={desc} onChange={this.handleChangeDesc} />
+              </div>
+              <div className='product-form__price'>
+                  <input id='cost' type="number" placeholder='Price' value={cost} onChange={this.handleChangeCost}/>
+              </div>
+              <div className='product-form__rating'>
+                  <input id='rating' type="number" placeholder='Rating' value={rating} onChange={this.handleChangeRating}/>
+              </div>
+              <div className='product-form__soldCount'>
+                  <input id='soldCount' type="number" placeholder='Sold count' value={soldCount} onChange={this.handleChangeSoldCount}/>
+              </div>
+              <div className='product-form__count'>
+                  <input id='count' type="number" placeholder='Count' value={count} onChange={this.handleChangeCount}/>
+              </div>
+              <div className='product-form__gender'>
+                  <select onChange={this.handleChangeGender}>
+                      <option value="Man">Man</option>
+                      <option value="Woman">Woman</option>
+                      <option value="Unisex">Unisex</option>
+                  </select>
+              </div>
+              <div className='product-form__categoryId'>
+                  <select onChange={this.handleChangeCategory}>
+                      <option value="0">Active wear</option>
+                      <option value="1">Jeans</option>
+                      <option value="2">Coats</option>
+                      <option value="3">Sweaters</option>
+                      <option value="4">Wear to work</option>
+                  </select>
+              </div>
+              <div className='product-form__rating'>
+                  <select onChange={this.handleChangeRating}>
+                      <option value="0">0</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                  </select>
+              </div>
+              <div className='product-form__btn'>
+                  <button onClick={this.createNewProduct}>Create</button>
+              </div>
           </div>
         );
     }

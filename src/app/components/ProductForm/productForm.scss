@@ -1,0 +1,37 @@
+@import '../../mixin.scss';
+
+.product-form {
+  padding: 30px 20px;
+
+  &__name,
+  &__desc,
+  &__price,
+  &__rating,
+  &__soldCount,
+  &__count,
+  &__gender,
+  &__categoryId,
+  &__btn,
+  &__title,
+  &__rating {
+    width: 300px;
+    text-align: center;
+    margin: 15px 0;
+  }
+
+  input, textarea {
+    width: 230px;
+    padding: 5px;
+    border-radius: 5px;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &__btn {
+    button {
+      @include btn(#1abc9c, #fff);
+    }
+  }
+}
