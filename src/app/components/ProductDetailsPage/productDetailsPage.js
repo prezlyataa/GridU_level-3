@@ -130,6 +130,7 @@ class ConnectedProductDetailsPage extends Component {
 
     renderEditTemplate() {
         const { currentProduct, productCategoryId } = this.state;
+        console.log(currentProduct);
 
         return (
             <div>
@@ -224,7 +225,7 @@ class ConnectedProductDetailsPage extends Component {
     };
 
     render() {
-        const { editing } = this.state;
+        const { editing, currentProduct } = this.state;
         const { role } = this.props;
         return (
             <Layout history={this.props.history}>
@@ -235,8 +236,10 @@ class ConnectedProductDetailsPage extends Component {
                 {!editing && this.renderProductDetails()}
                 {!editing &&
                     <div className="btn_buy">
-                        <button>Buy</button>
+                        {currentProduct.count > 1 && <button>Buy</button> }
+                        {currentProduct.count < 1 && <h4>Product is no available now!</h4>}
                     </div>
+
                 }
                 {editing && this.renderEditTemplate()}
             </Layout>
