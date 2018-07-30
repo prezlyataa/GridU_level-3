@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import withWire from '../../hocs/withWire';
 import { connect } from 'react-redux';
-import classnames from 'classnames';
 import { getProducts } from '../../actions';
 import { URLS } from "../../consts/apiConsts";
 import './productForm.css';
@@ -31,6 +30,7 @@ class ConnectedProductForm extends Component {
             gender: 'Man',
             categoryId: 0,
             rating: 0,
+            valid: true,
             newProduct: {}
         }
     }
@@ -50,12 +50,6 @@ class ConnectedProductForm extends Component {
     handleChangeCost = event => {
         this.setState({
             cost: event.target.value
-        })
-    };
-
-    handleChangeRating = event => {
-        this.setState({
-            rating: event.target.value
         })
     };
 
@@ -90,15 +84,14 @@ class ConnectedProductForm extends Component {
     };
 
     createNewProduct = (event) => {
-        const { newProduct, name, desc, cost, soldCount, count, image, gender, categoryId, rating } = this.state;
+        const { newProduct, name, desc, cost, soldCount, count, image, gender, categoryId, rating, valid } = this.state;
         const { httpService, getProducts } = this.props;
 
         event.preventDefault();
 
         newProduct.name = name;
-        newProduct.desc = desc;
+        newProduct.description = desc;
         newProduct.cost = parseInt(cost, 10);
-        newProduct.rating = parseInt(rating, 10);
         newProduct.soldCount = parseInt(soldCount, 10);
         newProduct.count = parseInt(count, 10);
         newProduct.image = image;
@@ -106,21 +99,31 @@ class ConnectedProductForm extends Component {
         newProduct.categoryId = categoryId;
         newProduct.rating = rating;
 
-        httpService
-            .post(URLS.products, newProduct)
-            .then(() => {
-                httpService
-                    .get(URLS.products)
-                    .then(products => {
-                        getProducts(products);
-                    })
-            });
+        if(name.length < 1 ||
+           desc.length < 1 ||
+           cost.length < 1 ||
+           soldCount.length < 1 ||
+           count.length < 1
+        ) {
+            alert('Fill all fields!')
+        } else {
+            httpService
+                .post(URLS.products, newProduct)
+                .then(() => {
+                    httpService
+                        .get(URLS.products)
+                        .then(products => {
+                            getProducts(products);
+                        })
+                });
 
-        this.props.onClose();
+            this.props.onClose();
+
+        }
     };
 
     render() {
-        const { name, desc, cost, rating, soldCount, count } = this.state;
+        const { name, desc, cost, soldCount, count } = this.state;
         return (
           <div className='product-form'>
               <div className='product-form__title'>
@@ -134,9 +137,6 @@ class ConnectedProductForm extends Component {
               </div>
               <div className='product-form__price'>
                   <input id='cost' type="number" placeholder='Price' value={cost} onChange={this.handleChangeCost}/>
-              </div>
-              <div className='product-form__rating'>
-                  <input id='rating' type="number" placeholder='Rating' value={rating} onChange={this.handleChangeRating}/>
               </div>
               <div className='product-form__soldCount'>
                   <input id='soldCount' type="number" placeholder='Sold count' value={soldCount} onChange={this.handleChangeSoldCount}/>
@@ -161,6 +161,7 @@ class ConnectedProductForm extends Component {
                   </select>
               </div>
               <div className='product-form__rating'>
+                  Rating:
                   <select onChange={this.handleChangeRating}>
                       <option value="0">0</option>
                       <option value="1">1</option>
