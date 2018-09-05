@@ -12,8 +12,7 @@ export class RouteSchema extends Component {
             <Route key='login' exact path='/' component={ LoginPage }/>,
             <Route key='productspage' path='/productsPage' component={ ProductsPage }/>,
             <Route key='productdetailspage' path='/productDetailsPage' component={ ProductDetailsPage }/>,
-            <Route key='secondpage' path='/secondPage' component={ SecondPage }/>,
-            <Route key='notfoundpage' path='*' component={ NotFoundPage } />
+            <Route key='secondpage' path='/secondPage' component={ SecondPage }/>
         ];
     }
 }

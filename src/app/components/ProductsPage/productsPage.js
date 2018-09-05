@@ -43,16 +43,21 @@ class ConnectedProductsPage extends Component {
         this.props.history.replace('/');
     }
 
+    // goTo = () => {
+    //     return(
+    //         <div>
+    //             <ul className='links'>
+    //                 <li><Link to='/productsPage'>First page</Link></li>
+    //                 <li><Link to='/secondPage'>Second page</Link></li>
+    //             </ul>
+    //         </div>
+    //     )
+    // };
+
     render() {
         return (
             <Layout history={this.props.history}>
                 <ProductsList/>
-                <div>
-                    <ul className='links'>
-                        <li><Link to='/productsPage'>First page</Link></li>
-                        <li><Link to='/secondPage'>Second page</Link></li>
-                    </ul>
-                </div>
             </Layout>
         );
     }

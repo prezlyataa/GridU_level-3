@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, Switch } from 'react-router-dom';
 import { RouteSchema } from './routes';
 import PropTypes from 'prop-types';
 import dependencies, { registerDependencies } from './dependencies';
@@ -20,7 +20,9 @@ class App extends Component {
            <div className='appContainer'>
                <Router>
                    <div>
-                       <RouteSchema />
+                       <Switch>
+                           <RouteSchema />
+                       </Switch>
                    </div>
                </Router>
            </div>
